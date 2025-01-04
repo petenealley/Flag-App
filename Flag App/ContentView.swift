@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+var remainingCountryCodes: [String] = Locale.Region.isoRegions.filter {$0.subRegions.isEmpty}.map {$0.identifier}
+
+var totalRemainingCountries = remainingCountryCodes.count
+
+func generateCountryFlag(_ countryCode: String) -> String {
+    String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
+        UnicodeScalar(127397 + $0.value)
+    }))
+}
+
+func generateCountryName(_ countryCode: String) -> String {
+    let countryName = (Locale.current.localizedString(forRegionCode: countryCode) ?? "")
+    return countryName
+}
+
 struct ContentView: View {
     @State var leftFlag = "🇺🇸"
     @State var centerFlag = "🇰🇷"
@@ -38,7 +53,7 @@ struct ContentView: View {
                 HStack {
                     //leftFlag
                     Button {
-                        print("Left Flag Button Pressed")
+                        print()
                     } label: {
                         Text(leftFlag)
                             .font(.system(size: 300))
@@ -128,7 +143,7 @@ struct ContentView: View {
                     
                     VStack {
                         //Current Score
-                        Text("Current Score: \(currentScore)%")
+                        Text("Current Score:  \(currentScore)%")
                             .font(.largeTitle)
                             .padding(.top)
                             .padding(.bottom)
@@ -136,13 +151,13 @@ struct ContentView: View {
                         
                         
                         //Number of Correct Guesses
-                        Text("Correct Guesses: \(correctAnswers)")
+                        Text("Correct Guesses:  \(correctAnswers)")
                             .font(.title)
                             .fontWeight(.bold)
                         
                         
                         //Number of Incorrect Guesses
-                        Text("Incorrect Guesses:\(wrongAnswers)")
+                        Text("Incorrect Guesses:  \(wrongAnswers)")
                             .font(.title)
                             .padding(.bottom)
                             .fontWeight(.bold)
