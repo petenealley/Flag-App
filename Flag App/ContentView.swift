@@ -13,7 +13,7 @@ var totalRemainingCountries = remainingCountryCodes.count
 
 var currentQuizFlagCodes: [String] = []
 
-func populateQuizFlagCodesIndexArray() -> [String] {
+func populateQuizFlagCodesArray() -> [String] {
     currentQuizFlagCodes = []
     var temporaryArray = remainingCountryCodes.shuffled()
     currentQuizFlagCodes.append(temporaryArray.popLast()!)
@@ -22,6 +22,9 @@ func populateQuizFlagCodesIndexArray() -> [String] {
     temporaryArray = remainingCountryCodes.shuffled()
     currentQuizFlagCodes.append(temporaryArray.popLast()!)
     temporaryArray = []
+//    var leftFlag = generateCountryFlag(currentQuizFlagCodes[0])
+//    var centerFlag = generateCountryFlag(currentQuizFlagCodes[1])
+//    var rightFlag = generateCountryFlag(currentQuizFlagCodes[2])
     return currentQuizFlagCodes
 }
     
@@ -37,10 +40,10 @@ func generateCountryName(_ countryCode: String) -> String {
 }
 
 struct ContentView: View {
-    @State var leftFlag = "🇺🇸"
-    @State var centerFlag = "🇰🇷"
-    @State var rightFlag = "🏴󠁧󠁢󠁳󠁣󠁴󠁿"
-    @State var correctAnswer = "South Korea"
+    @State var leftFlag = "🇸🇩"
+    @State var centerFlag = "🇨🇫"
+    @State var rightFlag = "🇦🇺"
+    @State var correctAnswer = "United States"
     @State var currentScore = 0
     @State var correctAnswers = 0
     @State var wrongAnswers = 0
@@ -67,7 +70,10 @@ struct ContentView: View {
                 HStack {
                     //leftFlag
                     Button {
-                        print(populateQuizFlagCodesIndexArray())
+                        var test = populateQuizFlagCodesArray()
+                        leftFlag = generateCountryFlag(test[0])
+                        centerFlag = generateCountryFlag(test[1])
+                        rightFlag = generateCountryFlag(test[2])
                     } label: {
                         Text(leftFlag)
                             .font(.system(size: 300))
@@ -78,7 +84,10 @@ struct ContentView: View {
                     }
                     //centerFlag
                     Button {
-                        print("Center Flag Button Pressed")
+                        var test = populateQuizFlagCodesArray()
+                        leftFlag = generateCountryFlag(test[0])
+                        centerFlag = generateCountryFlag(test[1])
+                        rightFlag = generateCountryFlag(test[2])
                     } label: {
                         Text(centerFlag)
                             .font(.system(size: 300))
@@ -90,7 +99,10 @@ struct ContentView: View {
                     
                     //rightFlag
                     Button {
-                        print("Right Flag Button Pressed")
+                        var test = populateQuizFlagCodesArray()
+                        leftFlag = generateCountryFlag(test[0])
+                        centerFlag = generateCountryFlag(test[1])
+                        rightFlag = generateCountryFlag(test[2])
                     } label: {
                         Text(rightFlag)
                             .font(.system(size: 300))
