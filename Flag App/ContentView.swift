@@ -29,6 +29,7 @@ struct ContentView: View {
                 Text("Ha Yool's Flag Quiz")
                     .font(.system(size: 72))
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .tracking(5)
                     .padding(.top, 30)
                 
                 Spacer()
@@ -46,7 +47,7 @@ struct ContentView: View {
                             .background(.black.opacity(0.5))
                             .cornerRadius(40)
                     }
-                    //FcenterFlag
+                    //centerFlag
                     Button {
                         print("Center Flag Button Pressed")
                     } label: {
