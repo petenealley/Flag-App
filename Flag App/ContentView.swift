@@ -8,6 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var leftFlag = "🇺🇸"
+    @State var centerFlag = "🇰🇷"
+    @State var rightFlag = "🏴󠁧󠁢󠁳󠁣󠁴󠁿"
+    @State var correctAnswer = "South Korea"
+    @State var currentScore = 0
+    @State var correctAnswers = 0
+    @State var wrongAnswers = 0
+    
     var body: some View {
         ZStack {
             //Background Image
@@ -31,7 +39,7 @@ struct ContentView: View {
                     Button {
                         print("Left Flag Button Pressed")
                     } label: {
-                        Text("🇺🇸")
+                        Text(leftFlag)
                             .font(.system(size: 300))
                             .padding(.vertical, -55)
                             .padding(.horizontal, 5)
@@ -42,7 +50,7 @@ struct ContentView: View {
                     Button {
                         print("Center Flag Button Pressed")
                     } label: {
-                        Text("🇰🇷")
+                        Text(centerFlag)
                             .font(.system(size: 300))
                             .padding(.vertical, -55)
                             .padding(.horizontal, 5)
@@ -54,7 +62,7 @@ struct ContentView: View {
                     Button {
                         print("Right Flag Button Pressed")
                     } label: {
-                        Text("🏴󠁧󠁢󠁳󠁣󠁴󠁿")
+                        Text(rightFlag)
                             .font(.system(size: 300))
                             .padding(.vertical, -55)
                             .padding(.horizontal, 5)
@@ -69,7 +77,7 @@ struct ContentView: View {
                     Text("Which one is the flag of")
                     
                     //Quiz Country
-                    Text("South Korea")
+                    Text(correctAnswer)
                         .foregroundStyle(.red)
                     
                     //Question Mark
@@ -119,21 +127,21 @@ struct ContentView: View {
                     
                     VStack {
                         //Current Score
-                        Text("Current Score:")
-                            .font(.title)
+                        Text("Current Score: \(currentScore)%")
+                            .font(.largeTitle)
                             .padding(.top)
                             .padding(.bottom)
                             .fontWeight(.bold)
                         
                         
                         //Number of Correct Guesses
-                        Text("Correct Guesses:")
+                        Text("Correct Guesses: \(correctAnswers)")
                             .font(.title)
                             .fontWeight(.bold)
                         
                         
                         //Number of Incorrect Guesses
-                        Text("Incorrect Guesses:")
+                        Text("Incorrect Guesses:\(wrongAnswers)")
                             .font(.title)
                             .padding(.bottom)
                             .fontWeight(.bold)
