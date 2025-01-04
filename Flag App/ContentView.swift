@@ -11,6 +11,20 @@ var remainingCountryCodes: [String] = Locale.Region.isoRegions.filter {$0.subReg
 
 var totalRemainingCountries = remainingCountryCodes.count
 
+var currentQuizFlagCodes: [String] = []
+
+func populateQuizFlagCodesIndexArray() -> [String] {
+    currentQuizFlagCodes = []
+    var temporaryArray = remainingCountryCodes.shuffled()
+    currentQuizFlagCodes.append(temporaryArray.popLast()!)
+    temporaryArray = remainingCountryCodes.shuffled()
+    currentQuizFlagCodes.append(temporaryArray.popLast()!)
+    temporaryArray = remainingCountryCodes.shuffled()
+    currentQuizFlagCodes.append(temporaryArray.popLast()!)
+    temporaryArray = []
+    return currentQuizFlagCodes
+}
+    
 func generateCountryFlag(_ countryCode: String) -> String {
     String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
         UnicodeScalar(127397 + $0.value)
@@ -53,7 +67,7 @@ struct ContentView: View {
                 HStack {
                     //leftFlag
                     Button {
-                        print()
+                        print(populateQuizFlagCodesIndexArray())
                     } label: {
                         Text(leftFlag)
                             .font(.system(size: 300))
