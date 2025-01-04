@@ -40,6 +40,7 @@ func generateCountryName(_ countryCode: String) -> String {
 }
 
 struct ContentView: View {
+    @State var gameOver: Bool = false
     @State var leftFlag = "🇸🇩"
     @State var centerFlag = "🇨🇫"
     @State var rightFlag = "🇦🇺"
@@ -132,30 +133,32 @@ struct ContentView: View {
                 HStack {
                     //Start Button
                     Button("Start") {
-                        
+                        gameOver.toggle()
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.green)
                     .font(.largeTitle)
                     .padding()
+                    .disabled(gameOver)
                     
                     //Pause Button
                     Button("Pause") {
-                        
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.yellow)
                     .font(.largeTitle)
                     .padding()
+                    .disabled(!gameOver)
                     
                     //End Button
                     Button("End") {
-                        
+                        gameOver.toggle()
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.red)
                     .font(.largeTitle)
                     .padding()
+                    .disabled(!gameOver)
                 }
                 .foregroundColor(.white)
                 .fontWeight(.bold)
