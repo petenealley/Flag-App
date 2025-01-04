@@ -27,9 +27,9 @@ struct ContentView: View {
                 
                 //Flags
                 HStack {
-                    //Flag Button1
+                    //leftFlag
                     Button {
-                        
+                        print("Left Flag Button Pressed")
                     } label: {
                         Text("🇺🇸")
                             .font(.system(size: 300))
@@ -38,9 +38,9 @@ struct ContentView: View {
                             .background(.black.opacity(0.5))
                             .cornerRadius(40)
                     }
-                    //Flag Button2
+                    //FcenterFlag
                     Button {
-                        
+                        print("Center Flag Button Pressed")
                     } label: {
                         Text("🇰🇷")
                             .font(.system(size: 300))
@@ -50,9 +50,9 @@ struct ContentView: View {
                             .cornerRadius(40)
                     }
                     
-                    //FlagButton 3
+                    //rightFlag
                     Button {
-                        
+                        print("Right Flag Button Pressed")
                     } label: {
                         Text("🏴󠁧󠁢󠁳󠁣󠁴󠁿")
                             .font(.system(size: 300))
