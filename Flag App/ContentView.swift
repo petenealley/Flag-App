@@ -7,37 +7,6 @@
 
 import SwiftUI
 
-var remainingCountryCodes: [String] = Locale.Region.isoRegions.filter {$0.subRegions.isEmpty}.map {$0.identifier}
-
-var totalRemainingCountries = remainingCountryCodes.count
-
-var currentQuizFlagCodes: [String] = []
-
-func populateQuizFlagCodesArray() -> [String] {
-    currentQuizFlagCodes = []
-    var temporaryArray = remainingCountryCodes.shuffled()
-    currentQuizFlagCodes.append(temporaryArray.popLast()!)
-    temporaryArray = remainingCountryCodes.shuffled()
-    currentQuizFlagCodes.append(temporaryArray.popLast()!)
-    temporaryArray = remainingCountryCodes.shuffled()
-    currentQuizFlagCodes.append(temporaryArray.popLast()!)
-    temporaryArray = []
-//    var leftFlag = generateCountryFlag(currentQuizFlagCodes[0])
-//    var centerFlag = generateCountryFlag(currentQuizFlagCodes[1])
-//    var rightFlag = generateCountryFlag(currentQuizFlagCodes[2])
-    return currentQuizFlagCodes
-}
-    
-func generateCountryFlag(_ countryCode: String) -> String {
-    String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
-        UnicodeScalar(127397 + $0.value)
-    }))
-}
-
-func generateCountryName(_ countryCode: String) -> String {
-    let countryName = (Locale.current.localizedString(forRegionCode: countryCode) ?? "")
-    return countryName
-}
 
 struct ContentView: View {
     @State var gameOver: Bool = false
@@ -71,7 +40,7 @@ struct ContentView: View {
                 HStack {
                     //leftFlag
                     Button {
-                        var test = populateQuizFlagCodesArray()
+                        let test = populateQuizFlagCodesArray()
                         leftFlag = generateCountryFlag(test[0])
                         centerFlag = generateCountryFlag(test[1])
                         rightFlag = generateCountryFlag(test[2])
@@ -85,7 +54,7 @@ struct ContentView: View {
                     }
                     //centerFlag
                     Button {
-                        var test = populateQuizFlagCodesArray()
+                        let test = populateQuizFlagCodesArray()
                         leftFlag = generateCountryFlag(test[0])
                         centerFlag = generateCountryFlag(test[1])
                         rightFlag = generateCountryFlag(test[2])
@@ -100,7 +69,7 @@ struct ContentView: View {
                     
                     //rightFlag
                     Button {
-                        var test = populateQuizFlagCodesArray()
+                        let test = populateQuizFlagCodesArray()
                         leftFlag = generateCountryFlag(test[0])
                         centerFlag = generateCountryFlag(test[1])
                         rightFlag = generateCountryFlag(test[2])
