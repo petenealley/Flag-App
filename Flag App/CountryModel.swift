@@ -7,8 +7,6 @@
 
 import Foundation
 
-struct Country: Identifiable {
-    let id: String
-    let name: String
-    let flag: String
-}
+//struct CountryCode: Identifiable {
+//    let id: String
+//}

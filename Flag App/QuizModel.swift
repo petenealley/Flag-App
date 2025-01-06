@@ -7,6 +7,30 @@
 
 import Foundation
 
-struct QuizData {
-    var remainingCountries: [Country]
+class QuizData {
+    
+    var remainingCountryCodes: [String] = []
+    
+    init() {
+        var remainingCountryCodes = Locale.Region.isoRegions.filter {$0.subRegions.isEmpty}.map {$0.identifier}
+    }
+    
+    func populateQuizFlagCodesArray() -> [String] {
+        var currentQuizFlagCodes: [String] = []
+        var temporaryArray: [String] = remainingCountryCodes.shuffled()
+        currentQuizFlagCodes.append(temporaryArray.popLast()!)
+        temporaryArray = remainingCountryCodes.shuffled()
+        currentQuizFlagCodes.append(temporaryArray.popLast()!)
+        temporaryArray = remainingCountryCodes.shuffled()
+        currentQuizFlagCodes.append(temporaryArray.popLast()!)
+        temporaryArray = []
+        return currentQuizFlagCodes
+    }
+    
+    func removeCorrectAnswer(anArray: [String], correctCountryCode: String) -> [String] {
+        var tempArray: [String] = anArray
+        var indexOfCodeToRemove = anArray.firstIndex(where: { $0 == correctCountryCode })
+        tempArray.remove(at: indexOfCodeToRemove!)
+        return tempArray
+    }
 }
