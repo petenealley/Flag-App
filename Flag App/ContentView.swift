@@ -7,15 +7,17 @@
 
 import SwiftUI
 
-var start = QuizData()
-var myTest = start.remainingCountryCodes
-var currentQuizCountryCodes = populateQuizFlagCodesArray()
+//var start = QuizData()
+//var myTest = start.remainingCountryCodes
+var remainingCountryCodes: [String] = Locale.Region.isoRegions.filter {$0.subRegions.isEmpty}.map {$0.identifier}
+var currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
 var correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
-
-
 
 struct ContentView: View {
     @State var gameOver: Bool = false
+    @State var leftFlagCountryCode = currentQuizCountryCodes[0]
+    @State var centerFlagCountryCode = currentQuizCountryCodes[1]
+    @State var rightFlagCountryCode = currentQuizCountryCodes[2]
     @State var leftFlag = generateCountryFlag(currentQuizCountryCodes[0])
     @State var centerFlag = generateCountryFlag(currentQuizCountryCodes[1])
     @State var rightFlag = generateCountryFlag(currentQuizCountryCodes[2])
@@ -46,10 +48,28 @@ struct ContentView: View {
                 HStack {
                     //leftFlag
                     Button {
-                        let test = populateQuizFlagCodesArray()
-                        leftFlag = generateCountryFlag(test[0])
-                        centerFlag = generateCountryFlag(test[1])
-                        rightFlag = generateCountryFlag(test[2])
+                        if leftFlagCountryCode == correctAnswerCountryCode {
+                            correctAnswers += 1
+                            remainingCountryCodes = removeCorrectAnswer(anArray: remainingCountryCodes, correctCountryCode: correctAnswerCountryCode)
+                            currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
+                            //Send Message - you got it right
+                            let test = currentQuizCountryCodes
+                            leftFlag = generateCountryFlag(test[0])
+                            centerFlag = generateCountryFlag(test[1])
+                            rightFlag = generateCountryFlag(test[2])
+                            correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
+                            correctAnswer = generateCountryName(correctAnswerCountryCode)
+                        } else {
+                            wrongAnswers += 1
+                            currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
+                            //Send Message You got it wrong
+                            let test = currentQuizCountryCodes
+                            leftFlag = generateCountryFlag(test[0])
+                            centerFlag = generateCountryFlag(test[1])
+                            rightFlag = generateCountryFlag(test[2])
+                            correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
+                            correctAnswer = generateCountryName(correctAnswerCountryCode)
+                        }
                     } label: {
                         Text(leftFlag)
                             .font(.system(size: 300))
@@ -60,10 +80,28 @@ struct ContentView: View {
                     }
                     //centerFlag
                     Button {
-                        let test = populateQuizFlagCodesArray()
-                        leftFlag = generateCountryFlag(test[0])
-                        centerFlag = generateCountryFlag(test[1])
-                        rightFlag = generateCountryFlag(test[2])
+                        if centerFlagCountryCode == correctAnswerCountryCode {
+                            correctAnswers += 1
+                            remainingCountryCodes = removeCorrectAnswer(anArray: remainingCountryCodes, correctCountryCode: correctAnswerCountryCode)
+                            currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
+                            //Send Message - you got it right
+                            let test = currentQuizCountryCodes
+                            leftFlag = generateCountryFlag(test[0])
+                            centerFlag = generateCountryFlag(test[1])
+                            rightFlag = generateCountryFlag(test[2])
+                            correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
+                            correctAnswer = generateCountryName(correctAnswerCountryCode)
+                        } else {
+                            wrongAnswers += 1
+                            currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
+                            //Send Message You got it wrong
+                            let test = currentQuizCountryCodes
+                            leftFlag = generateCountryFlag(test[0])
+                            centerFlag = generateCountryFlag(test[1])
+                            rightFlag = generateCountryFlag(test[2])
+                            correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
+                            correctAnswer = generateCountryName(correctAnswerCountryCode)
+                        }
                     } label: {
                         Text(centerFlag)
                             .font(.system(size: 300))
@@ -75,10 +113,29 @@ struct ContentView: View {
                     
                     //rightFlag
                     Button {
-                        let test = populateQuizFlagCodesArray()
-                        leftFlag = generateCountryFlag(test[0])
-                        centerFlag = generateCountryFlag(test[1])
-                        rightFlag = generateCountryFlag(test[2])
+                        if rightFlagCountryCode == correctAnswerCountryCode {
+                            correctAnswers += 1
+                            remainingCountryCodes = removeCorrectAnswer(anArray: remainingCountryCodes, correctCountryCode: correctAnswerCountryCode)
+                            currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
+                            //Send Message - you got it right
+                            let test = currentQuizCountryCodes
+                            leftFlag = generateCountryFlag(test[0])
+                            centerFlag = generateCountryFlag(test[1])
+                            rightFlag = generateCountryFlag(test[2])
+                            correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
+                            correctAnswer = generateCountryName(correctAnswerCountryCode)
+                        } else {
+                            wrongAnswers += 1
+                            //Send Message You got it wrong
+                            currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
+                            //Send Message - you got it right
+                            let test = currentQuizCountryCodes
+                            leftFlag = generateCountryFlag(test[0])
+                            centerFlag = generateCountryFlag(test[1])
+                            rightFlag = generateCountryFlag(test[2])
+                            correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
+                            correctAnswer = generateCountryName(correctAnswerCountryCode)
+                        }
                     } label: {
                         Text(rightFlag)
                             .font(.system(size: 300))

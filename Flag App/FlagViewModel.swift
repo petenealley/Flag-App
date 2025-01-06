@@ -7,17 +7,17 @@
 
 import Foundation
 
-var remainingCountryCodes: [String] = Locale.Region.isoRegions.filter {$0.subRegions.isEmpty}.map {$0.identifier}
+
 var totalRemainingCountries = remainingCountryCodes.count
 var currentQuizFlagCodes: [String] = []
 
-func populateQuizFlagCodesArray() -> [String] {
+func populateQuizFlagCodesArray(allRemainingCountryCodes: [String]) -> [String] {
     currentQuizFlagCodes = []
-    var temporaryArray = remainingCountryCodes.shuffled()
+    var temporaryArray = allRemainingCountryCodes.shuffled()
     currentQuizFlagCodes.append(temporaryArray.popLast()!)
-    temporaryArray = remainingCountryCodes.shuffled()
+    temporaryArray = allRemainingCountryCodes.shuffled()
     currentQuizFlagCodes.append(temporaryArray.popLast()!)
-    temporaryArray = remainingCountryCodes.shuffled()
+    temporaryArray = allRemainingCountryCodes.shuffled()
     currentQuizFlagCodes.append(temporaryArray.popLast()!)
     temporaryArray = []
     return currentQuizFlagCodes
@@ -35,7 +35,24 @@ func generateCountryName(_ countryCode: String) -> String {
 }
 
 func pickCorrectAnswer(anArray: [String]) -> String {
-    var correctCountryAnswerCode = anArray.randomElement()
+    let correctCountryAnswerCode = anArray.randomElement()
     return correctCountryAnswerCode!
 }
+
+func removeCorrectAnswer(anArray: [String], correctCountryCode: String) -> [String] {
+    var tempArray: [String] = anArray
+    let indexOfCodeToRemove = anArray.firstIndex(where: { $0 == correctCountryCode })
+    tempArray.remove(at: indexOfCodeToRemove!)
+    return tempArray
+}
+
+//func generateNewCurrentQuizCountryCodes() {
+//    currentQuizCountryCodes = populateQuizFlagCodesArray()
+////    let test = currentQuizCountryCodes
+////    leftFlag = generateCountryFlag(test[0])
+////    centerFlag = generateCountryFlag(test[1])
+////    rightFlag = generateCountryFlag(test[2])
+//    correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
+//    var correctAnswer = generateCountryName(correctAnswerCountryCode)
+//}
 
