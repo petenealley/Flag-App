@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-//var start = QuizData()
-//var myTest = start.remainingCountryCodes
 var remainingCountryCodes: [String] = Locale.Region.isoRegions.filter {$0.subRegions.isEmpty}.map {$0.identifier}
 var currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
 var correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
