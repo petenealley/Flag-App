@@ -9,10 +9,10 @@ import Foundation
 
 class QuizData {
     
-    var remainingCountryCodes: [String] = []
+    var remainingCountryCodes: [String] = Locale.Region.isoRegions.filter {$0.subRegions.isEmpty}.map {$0.identifier}
     
     init() {
-        var remainingCountryCodes = Locale.Region.isoRegions.filter {$0.subRegions.isEmpty}.map {$0.identifier}
+//        var remainingCountryCodes = Locale.Region.isoRegions.filter {$0.subRegions.isEmpty}.map {$0.identifier}
     }
     
     func populateQuizFlagCodesArray() -> [String] {
@@ -29,8 +29,12 @@ class QuizData {
     
     func removeCorrectAnswer(anArray: [String], correctCountryCode: String) -> [String] {
         var tempArray: [String] = anArray
-        var indexOfCodeToRemove = anArray.firstIndex(where: { $0 == correctCountryCode })
+        let indexOfCodeToRemove = anArray.firstIndex(where: { $0 == correctCountryCode })
         tempArray.remove(at: indexOfCodeToRemove!)
         return tempArray
+    }
+    
+    func gamePlay() {
+        
     }
 }

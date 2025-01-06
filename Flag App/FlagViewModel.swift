@@ -34,3 +34,8 @@ func generateCountryName(_ countryCode: String) -> String {
     return countryName
 }
 
+func pickCorrectAnswer(anArray: [String]) -> String {
+    var correctCountryAnswerCode = anArray.randomElement()
+    return correctCountryAnswerCode!
+}
+

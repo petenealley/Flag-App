@@ -7,13 +7,19 @@
 
 import SwiftUI
 
+var start = QuizData()
+var myTest = start.remainingCountryCodes
+var currentQuizCountryCodes = populateQuizFlagCodesArray()
+var correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
+
+
 
 struct ContentView: View {
     @State var gameOver: Bool = false
-    @State var leftFlag = "🇸🇩"
-    @State var centerFlag = "🇨🇫"
-    @State var rightFlag = "🇦🇺"
-    @State var correctAnswer = "United States"
+    @State var leftFlag = generateCountryFlag(currentQuizCountryCodes[0])
+    @State var centerFlag = generateCountryFlag(currentQuizCountryCodes[1])
+    @State var rightFlag = generateCountryFlag(currentQuizCountryCodes[2])
+    @State var correctAnswer = generateCountryName(correctAnswerCountryCode)
     @State var currentScore = 0
     @State var correctAnswers = 0
     @State var wrongAnswers = 0
