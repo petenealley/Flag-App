@@ -49,12 +49,12 @@ struct ContentView: View {
                         if leftFlagCountryCode == correctAnswerCountryCode {
                             correctAnswers += 1
                             //Send Message - you got it right
-                            print("Correct Answer = \(correctAnswerCountryCode)")
+                            print("Correct Answer = \(generateCountryName(correctAnswerCountryCode))")
                             remainingCountryCodes = removeCorrectAnswer(anArray: remainingCountryCodes, correctCountryCode: correctAnswerCountryCode)
                             print("Remaining Country Count: \(remainingCountryCodes.count)")
                         } else {
                             wrongAnswers += 1
-                            print("Wrong Answer = \(leftFlagCountryCode)")
+                            print("Wrong Answer = \(generateCountryName(leftFlagCountryCode))")
                             print("Remaining Country Count: \(remainingCountryCodes.count)")
                         }
                         currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
@@ -62,7 +62,7 @@ struct ContentView: View {
                         leftFlag = generateCountryFlag(test[0])
                         leftFlagCountryCode = test[0]
                         centerFlag = generateCountryFlag(test[1])
-                        centerFlagCountryCode = test[2]
+                        centerFlagCountryCode = test[1]
                         rightFlag = generateCountryFlag(test[2])
                         rightFlagCountryCode = test[2]
                         correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
@@ -80,19 +80,20 @@ struct ContentView: View {
                         if centerFlagCountryCode == correctAnswerCountryCode {
                             correctAnswers += 1
                             //Send Message - you got it right
-                            print("Correct Answer = \(correctAnswerCountryCode)")
+                            print("Correct Answer = \(generateCountryName(correctAnswerCountryCode))")
                             remainingCountryCodes = removeCorrectAnswer(anArray: remainingCountryCodes, correctCountryCode: correctAnswerCountryCode)
                             print("Remaining Country Count: \(remainingCountryCodes.count)")
                         } else {
                             wrongAnswers += 1
-                            print("Wrong Answer = \(centerFlagCountryCode)")
+                            print("Wrong Answer = \(generateCountryName(centerFlagCountryCode))")
+                            print("Remaining Country Count: \(remainingCountryCodes.count)")
                         }
                         currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
                         let test = currentQuizCountryCodes
                         leftFlag = generateCountryFlag(test[0])
                         leftFlagCountryCode = test[0]
                         centerFlag = generateCountryFlag(test[1])
-                        centerFlagCountryCode = test[2]
+                        centerFlagCountryCode = test[1]
                         rightFlag = generateCountryFlag(test[2])
                         rightFlagCountryCode = test[2]
                         correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
@@ -111,19 +112,20 @@ struct ContentView: View {
                         if rightFlagCountryCode == correctAnswerCountryCode {
                             correctAnswers += 1
                             //Send Message - you got it right
-                            print("Correct Answer = \(correctAnswerCountryCode)")
+                            print("Correct Answer = \(generateCountryName(correctAnswerCountryCode))")
                             remainingCountryCodes = removeCorrectAnswer(anArray: remainingCountryCodes, correctCountryCode: correctAnswerCountryCode)
                             print("Remaining Country Count: \(remainingCountryCodes.count)")
                         } else {
                             wrongAnswers += 1
-                            print("Wrong Answer = \(rightFlagCountryCode)")
+                            print("Wrong Answer = \(generateCountryName(rightFlagCountryCode))")
+                            print("Remaining Country Count: \(remainingCountryCodes.count)")
                         }
                         currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
                         let test = currentQuizCountryCodes
                         leftFlag = generateCountryFlag(test[0])
                         leftFlagCountryCode = test[0]
                         centerFlag = generateCountryFlag(test[1])
-                        centerFlagCountryCode = test[2]
+                        centerFlagCountryCode = test[1]
                         rightFlag = generateCountryFlag(test[2])
                         rightFlagCountryCode = test[2]
                         correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
