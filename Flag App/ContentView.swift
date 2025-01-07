@@ -12,7 +12,7 @@ var currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCode
 var correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
 
 struct ContentView: View {
-    @State var gameOver: Bool = false
+    @State var gameOver: Bool = true
     @State var leftFlagCountryCode = currentQuizCountryCodes[0]
     @State var centerFlagCountryCode = currentQuizCountryCodes[1]
     @State var rightFlagCountryCode = currentQuizCountryCodes[2]
@@ -160,12 +160,13 @@ struct ContentView: View {
                     //Start Button
                     Button("Start") {
                         gameOver.toggle()
+                        print("gameOver = \(gameOver)")
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.green)
                     .font(.largeTitle)
                     .padding()
-                    .disabled(gameOver)
+                    .disabled(!gameOver)
                     
                     //Pause Button
                     Button("Pause") {
@@ -174,17 +175,18 @@ struct ContentView: View {
                     .tint(.yellow)
                     .font(.largeTitle)
                     .padding()
-                    .disabled(!gameOver)
+                    .disabled(gameOver)
                     
                     //End Button
                     Button("End") {
                         gameOver.toggle()
+                        print("gameOver = \(gameOver)")
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.red)
                     .font(.largeTitle)
                     .padding()
-                    .disabled(!gameOver)
+                    .disabled(gameOver)
                 }
                 .foregroundColor(.white)
                 .fontWeight(.bold)
