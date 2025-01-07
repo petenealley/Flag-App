@@ -20,13 +20,13 @@ struct ContentView: View {
     @State var centerFlag = generateCountryFlag(currentQuizCountryCodes[1])
     @State var rightFlag = generateCountryFlag(currentQuizCountryCodes[2])
     @State var correctAnswer = generateCountryName(correctAnswerCountryCode)
-    @State var currentScore = "0"
+    @State var currentScore = 0.0
     @State var correctAnswers = 0
     @State var wrongAnswers = 0
     
     func pickedCorrectAnswer() {
         correctAnswers += 1
-        currentScore = String(100*(correctAnswers/(correctAnswers+wrongAnswers)))
+//        currentScore = Double((correctAnswers/(correctAnswers+wrongAnswers)))
         //Send Message - you got it right
         print("Correct Answer = \(generateCountryName(correctAnswerCountryCode))")
         remainingCountryCodes = removeCorrectAnswer(anArray: remainingCountryCodes, correctCountryCode: correctAnswerCountryCode)
@@ -46,7 +46,7 @@ struct ContentView: View {
     
     func pickedWrongAnswer(answer: String) {
         wrongAnswers += 1
-        currentScore = String(100*(correctAnswers/(correctAnswers+wrongAnswers)))
+//        currentScore = Double((correctAnswers/(correctAnswers+wrongAnswers)))
         print("Wrong Answer = \(generateCountryName(answer))")
         print("Current Score = \(currentScore) %")
         print("Remaining Country Count: \(remainingCountryCodes.count)")
@@ -161,7 +161,7 @@ struct ContentView: View {
                     //Start Button
                     Button("Start") {
                         gameOver = false
-                        print("gameOver = \(gameOver)")
+//                        playGame()
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.green)
@@ -169,14 +169,14 @@ struct ContentView: View {
                     .padding()
                     .disabled(!gameOver)
                     
-                    //Pause Button
-                    Button("Pause") {
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.yellow)
-                    .font(.largeTitle)
-                    .padding()
-                    .disabled(gameOver)
+//                    //Pause Button
+//                    Button("Pause") {
+//                    }
+//                    .buttonStyle(.borderedProminent)
+//                    .tint(.yellow)
+//                    .font(.largeTitle)
+//                    .padding()
+//                    .disabled(gameOver)
                     
                     //End Button
                     Button("End") {
@@ -201,7 +201,7 @@ struct ContentView: View {
                     
                     VStack {
                         //Current Score
-                        Text("Current Score:  \(currentScore)%")
+                        Text("Current Score:  \(100 * currentScore) %")
                             .font(.largeTitle)
                             .padding(.top)
                             .padding(.bottom)
