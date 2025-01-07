@@ -46,13 +46,3 @@ func removeCorrectAnswer(anArray: [String], correctCountryCode: String) -> [Stri
     return tempArray
 }
 
-//func generateNewCurrentQuizCountryCodes() {
-//    currentQuizCountryCodes = populateQuizFlagCodesArray()
-////    let test = currentQuizCountryCodes
-////    leftFlag = generateCountryFlag(test[0])
-////    centerFlag = generateCountryFlag(test[1])
-////    rightFlag = generateCountryFlag(test[2])
-//    correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
-//    var correctAnswer = generateCountryName(correctAnswerCountryCode)
-//}
-
