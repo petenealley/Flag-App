@@ -20,15 +20,17 @@ struct ContentView: View {
     @State var centerFlag = generateCountryFlag(currentQuizCountryCodes[1])
     @State var rightFlag = generateCountryFlag(currentQuizCountryCodes[2])
     @State var correctAnswer = generateCountryName(correctAnswerCountryCode)
-    @State var currentScore = 0
+    @State var currentScore = "0"
     @State var correctAnswers = 0
     @State var wrongAnswers = 0
     
     func pickedCorrectAnswer() {
         correctAnswers += 1
+        currentScore = String(100*(correctAnswers/(correctAnswers+wrongAnswers)))
         //Send Message - you got it right
         print("Correct Answer = \(generateCountryName(correctAnswerCountryCode))")
         remainingCountryCodes = removeCorrectAnswer(anArray: remainingCountryCodes, correctCountryCode: correctAnswerCountryCode)
+        print("Current Score = \(currentScore) %")
         print("Remaining Country Count: \(remainingCountryCodes.count)")
         currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
         let test = currentQuizCountryCodes
@@ -44,7 +46,9 @@ struct ContentView: View {
     
     func pickedWrongAnswer(answer: String) {
         wrongAnswers += 1
+        currentScore = String(100*(correctAnswers/(correctAnswers+wrongAnswers)))
         print("Wrong Answer = \(generateCountryName(answer))")
+        print("Current Score = \(currentScore) %")
         print("Remaining Country Count: \(remainingCountryCodes.count)")
         currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
         let test = currentQuizCountryCodes
@@ -56,6 +60,13 @@ struct ContentView: View {
         rightFlagCountryCode = test[2]
         correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
         correctAnswer = generateCountryName(correctAnswerCountryCode)
+    }
+    
+    func playGame() {
+        while totalRemainingCountries > 250 {
+            gameOver = false
+        }
+        gameOver = true
     }
     
     var body: some View {
@@ -93,14 +104,17 @@ struct ContentView: View {
                             .background(.black.opacity(0.5))
                             .cornerRadius(40)
                     }
+                    .disabled(gameOver)
                     //centerFlag
                     Button {
+                        
                         if centerFlagCountryCode == correctAnswerCountryCode {
                             pickedCorrectAnswer()
                         } else {
                             pickedWrongAnswer(answer: centerFlagCountryCode)
                         }
-                    } label: {
+                    }
+                    label: {
                         Text(centerFlag)
                             .font(.system(size: 300))
                             .padding(.vertical, -55)
@@ -108,14 +122,14 @@ struct ContentView: View {
                             .background(.black.opacity(0.5))
                             .cornerRadius(40)
                     }
-                    
+                    .disabled(gameOver)
                     //rightFlag
                     Button {
-                        if rightFlagCountryCode == correctAnswerCountryCode {
-                            pickedCorrectAnswer()
-                        } else {
-                            pickedWrongAnswer(answer: rightFlagCountryCode)
-                        }
+                            if rightFlagCountryCode == correctAnswerCountryCode {
+                                pickedCorrectAnswer()
+                            } else {
+                                pickedWrongAnswer(answer: rightFlagCountryCode)
+                            }
                     } label: {
                         Text(rightFlag)
                             .font(.system(size: 300))
@@ -124,6 +138,7 @@ struct ContentView: View {
                             .background(.black.opacity(0.5))
                             .cornerRadius(40)
                     }
+                    .disabled(gameOver)
                 }
                 
                 //Challenge
@@ -145,7 +160,7 @@ struct ContentView: View {
                 HStack {
                     //Start Button
                     Button("Start") {
-                        gameOver.toggle()
+                        gameOver = false
                         print("gameOver = \(gameOver)")
                     }
                     .buttonStyle(.borderedProminent)
@@ -165,7 +180,7 @@ struct ContentView: View {
                     
                     //End Button
                     Button("End") {
-                        gameOver.toggle()
+                        gameOver = true
                         print("gameOver = \(gameOver)")
                     }
                     .buttonStyle(.borderedProminent)
