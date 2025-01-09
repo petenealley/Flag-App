@@ -7,20 +7,17 @@
 
 import SwiftUI
 
-var correctAnswers = 0
-var wrongAnswers = 0
-var currentScore = 0
+
+//var leftFlag = generateCountryFlag(currentQuizCountryCodes[0])
+//var centerFlag = generateCountryFlag(currentQuizCountryCodes[1])
+//var rightFlag = generateCountryFlag(currentQuizCountryCodes[2])
 
 struct ContentView: View {
     
     @State var gameOver: Bool = true
-    @State var leftFlagCountryCode = currentQuizCountryCodes[0]
-    @State var centerFlagCountryCode = currentQuizCountryCodes[1]
-    @State var rightFlagCountryCode = currentQuizCountryCodes[2]
     @State var leftFlag = generateCountryFlag(currentQuizCountryCodes[0])
     @State var centerFlag = generateCountryFlag(currentQuizCountryCodes[1])
     @State var rightFlag = generateCountryFlag(currentQuizCountryCodes[2])
-    @State var correctAnswer = generateCountryName(correctAnswerCountryCode)
     
     func pickedCorrectAnswer() {
         correctAnswers += 1

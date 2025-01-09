@@ -15,3 +15,12 @@ var correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCode
 
 var totalRemainingCountries = remainingCountryCodes.count
 var currentQuizFlagCodes: [String] = []
+
+var correctAnswers = 0
+var wrongAnswers = 0
+var currentScore = 0
+
+var leftFlagCountryCode = currentQuizCountryCodes[0]
+var centerFlagCountryCode = currentQuizCountryCodes[1]
+var rightFlagCountryCode = currentQuizCountryCodes[2]
+var correctAnswer = generateCountryName(correctAnswerCountryCode)
