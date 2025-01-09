@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-
-//var leftFlag = generateCountryFlag(currentQuizCountryCodes[0])
-//var centerFlag = generateCountryFlag(currentQuizCountryCodes[1])
-//var rightFlag = generateCountryFlag(currentQuizCountryCodes[2])
-
 struct ContentView: View {
     
     @State var gameOver: Bool = true
