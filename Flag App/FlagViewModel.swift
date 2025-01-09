@@ -7,10 +7,6 @@
 
 import Foundation
 
-
-var totalRemainingCountries = remainingCountryCodes.count
-var currentQuizFlagCodes: [String] = []
-
 func populateQuizFlagCodesArray(allRemainingCountryCodes: [String]) -> [String] {
     currentQuizFlagCodes = []
     var temporaryArray = allRemainingCountryCodes.shuffled()

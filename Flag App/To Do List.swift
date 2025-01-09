@@ -5,8 +5,6 @@
 //  Created by Pete Nealley on 1/7/25.
 //
 
-//Fix Current Score
-
 //Add functionality to the "End" Button
 
 //Add Message/Feedback Funtionality

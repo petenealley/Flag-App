@@ -7,10 +7,12 @@
 
 import SwiftUI
 
-let countryData = Country()
-var currentScore = 0.0
+var correctAnswers = 0
+var wrongAnswers = 0
+var currentScore = 0
 
 struct ContentView: View {
+    
     @State var gameOver: Bool = true
     @State var leftFlagCountryCode = currentQuizCountryCodes[0]
     @State var centerFlagCountryCode = currentQuizCountryCodes[1]
@@ -19,9 +21,6 @@ struct ContentView: View {
     @State var centerFlag = generateCountryFlag(currentQuizCountryCodes[1])
     @State var rightFlag = generateCountryFlag(currentQuizCountryCodes[2])
     @State var correctAnswer = generateCountryName(correctAnswerCountryCode)
-    @State var correctAnswers = 0
-    @State var wrongAnswers = 0
-    @State var currentScore: Double = 0.0
     
     func pickedCorrectAnswer() {
         correctAnswers += 1
@@ -39,6 +38,7 @@ struct ContentView: View {
         rightFlagCountryCode = test[2]
         correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
         correctAnswer = generateCountryName(correctAnswerCountryCode)
+        print(currentQuizFlagCodes)
     }
     
     func pickedWrongAnswer(answer: String) {
@@ -55,6 +55,7 @@ struct ContentView: View {
         rightFlagCountryCode = test[2]
         correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
         correctAnswer = generateCountryName(correctAnswerCountryCode)
+        print(currentQuizFlagCodes)
     }
     
     func playGame() {
@@ -91,8 +92,7 @@ struct ContentView: View {
                         } else {
                             pickedWrongAnswer(answer: leftFlagCountryCode)
                         }
-                        currentScore = 100 * Double((correctAnswers/(correctAnswers+wrongAnswers)))
-                        print("Current Score = \(currentScore) %")
+                        currentScore = (correctAnswers-wrongAnswers) * 10
                     } label: {
                         Text(leftFlag)
                             .font(.system(size: 300))
@@ -110,8 +110,7 @@ struct ContentView: View {
                         } else {
                             pickedWrongAnswer(answer: centerFlagCountryCode)
                         }
-                        currentScore = 100 * Double((correctAnswers/(correctAnswers+wrongAnswers)))
-                        print("Current Score = \(currentScore) %")
+                        currentScore = (correctAnswers-wrongAnswers) * 10
                     }
                     label: {
                         Text(centerFlag)
@@ -129,8 +128,7 @@ struct ContentView: View {
                             } else {
                                 pickedWrongAnswer(answer: rightFlagCountryCode)
                             }
-                        currentScore = 100 * Double((correctAnswers/(correctAnswers+wrongAnswers)))
-                        print("Current Score = \(currentScore) %")
+                        currentScore = (correctAnswers-wrongAnswers) * 10
                     } label: {
                         Text(rightFlag)
                             .font(.system(size: 300))
@@ -163,6 +161,8 @@ struct ContentView: View {
                     Button("Start") {
                         gameOver = false
 //                        playGame()
+                        print(remainingCountryCodes)
+                        print(currentQuizFlagCodes)
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.green)
@@ -202,7 +202,7 @@ struct ContentView: View {
                     
                     VStack {
                         //Current Score
-                        Text("Current Score:  \(currentScore) %")
+                        Text("Current Score:  \(currentScore)")
                             .font(.largeTitle)
                             .padding(.top)
                             .padding(.bottom)
