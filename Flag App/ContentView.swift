@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-var remainingCountryCodes: [String] = Locale.Region.isoRegions.filter {$0.subRegions.isEmpty}.map {$0.identifier}
-var currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
-var correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
+let countryData = Country()
+var currentScore = 0.0
 
 struct ContentView: View {
     @State var gameOver: Bool = true
@@ -20,17 +19,15 @@ struct ContentView: View {
     @State var centerFlag = generateCountryFlag(currentQuizCountryCodes[1])
     @State var rightFlag = generateCountryFlag(currentQuizCountryCodes[2])
     @State var correctAnswer = generateCountryName(correctAnswerCountryCode)
-    @State var currentScore = 0.0
     @State var correctAnswers = 0
     @State var wrongAnswers = 0
+    @State var currentScore: Double = 0.0
     
     func pickedCorrectAnswer() {
         correctAnswers += 1
-//        currentScore = Double((correctAnswers/(correctAnswers+wrongAnswers)))
         //Send Message - you got it right
         print("Correct Answer = \(generateCountryName(correctAnswerCountryCode))")
         remainingCountryCodes = removeCorrectAnswer(anArray: remainingCountryCodes, correctCountryCode: correctAnswerCountryCode)
-        print("Current Score = \(currentScore) %")
         print("Remaining Country Count: \(remainingCountryCodes.count)")
         currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
         let test = currentQuizCountryCodes
@@ -46,9 +43,7 @@ struct ContentView: View {
     
     func pickedWrongAnswer(answer: String) {
         wrongAnswers += 1
-//        currentScore = Double((correctAnswers/(correctAnswers+wrongAnswers)))
         print("Wrong Answer = \(generateCountryName(answer))")
-        print("Current Score = \(currentScore) %")
         print("Remaining Country Count: \(remainingCountryCodes.count)")
         currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
         let test = currentQuizCountryCodes
@@ -96,6 +91,8 @@ struct ContentView: View {
                         } else {
                             pickedWrongAnswer(answer: leftFlagCountryCode)
                         }
+                        currentScore = 100 * Double((correctAnswers/(correctAnswers+wrongAnswers)))
+                        print("Current Score = \(currentScore) %")
                     } label: {
                         Text(leftFlag)
                             .font(.system(size: 300))
@@ -113,6 +110,8 @@ struct ContentView: View {
                         } else {
                             pickedWrongAnswer(answer: centerFlagCountryCode)
                         }
+                        currentScore = 100 * Double((correctAnswers/(correctAnswers+wrongAnswers)))
+                        print("Current Score = \(currentScore) %")
                     }
                     label: {
                         Text(centerFlag)
@@ -130,6 +129,8 @@ struct ContentView: View {
                             } else {
                                 pickedWrongAnswer(answer: rightFlagCountryCode)
                             }
+                        currentScore = 100 * Double((correctAnswers/(correctAnswers+wrongAnswers)))
+                        print("Current Score = \(currentScore) %")
                     } label: {
                         Text(rightFlag)
                             .font(.system(size: 300))
@@ -201,7 +202,7 @@ struct ContentView: View {
                     
                     VStack {
                         //Current Score
-                        Text("Current Score:  \(100 * currentScore) %")
+                        Text("Current Score:  \(currentScore) %")
                             .font(.largeTitle)
                             .padding(.top)
                             .padding(.bottom)

@@ -7,6 +7,8 @@
 
 //Fix Current Score
 
+//Add functionality to the "End" Button
+
 //Add Message/Feedback Funtionality
 
 //Add a Game Timer

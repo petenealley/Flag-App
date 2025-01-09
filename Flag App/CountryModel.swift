@@ -7,6 +7,16 @@
 
 import Foundation
 
-//struct CountryCode: Identifiable {
-//    let id: String
-//}
+var remainingCountryCodes: [String] = Locale.Region.isoRegions.filter {$0.subRegions.isEmpty}.map {$0.identifier}
+var currentQuizCountryCodes = populateQuizFlagCodesArray(allRemainingCountryCodes: remainingCountryCodes)
+var correctAnswerCountryCode = pickCorrectAnswer(anArray: currentQuizCountryCodes)
+
+
+
+struct Country {
+
+}
+
+struct Game {
+
+}
