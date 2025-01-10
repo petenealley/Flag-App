@@ -7,38 +7,121 @@
 
 import Foundation
 
-func populateQuizFlagCodesArray(allRemainingCountryCodes: [String]) -> [String] {
-    currentQuizFlagCodes = []
-    var temporaryArray = allRemainingCountryCodes.shuffled()
-    currentQuizFlagCodes.append(temporaryArray.popLast()!)
-    temporaryArray = allRemainingCountryCodes.shuffled()
-    currentQuizFlagCodes.append(temporaryArray.popLast()!)
-    temporaryArray = allRemainingCountryCodes.shuffled()
-    currentQuizFlagCodes.append(temporaryArray.popLast()!)
-    temporaryArray = []
-    return currentQuizFlagCodes
-}
-
-func generateCountryFlag(_ countryCode: String) -> String {
-    String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
-        UnicodeScalar(127397 + $0.value)
-    }))
-}
-
-func generateCountryName(_ countryCode: String) -> String {
-    let countryName = (Locale.current.localizedString(forRegionCode: countryCode) ?? "")
-    return countryName
-}
-
-func pickCorrectAnswer(anArray: [String]) -> String {
-    let correctCountryAnswerCode = anArray.randomElement()
-    return correctCountryAnswerCode!
-}
-
-func removeCorrectAnswer(anArray: [String], correctCountryCode: String) -> [String] {
-    var tempArray: [String] = anArray
-    let indexOfCodeToRemove = anArray.firstIndex(where: { $0 == correctCountryCode })
-    tempArray.remove(at: indexOfCodeToRemove!)
-    return tempArray
+class FlagViewModel: ObservableObject {
+    // MARK: - Published Properties
+    @Published private(set) var currentQuizFlagCodes: [String] = []
+    @Published private(set) var correctCountryCode: String = ""
+    @Published private(set) var remainingCountryCodes: [String] = []
+    @Published private(set) var score = 0
+    @Published private(set) var highScore = UserDefaults.standard.integer(forKey: "HighScore")
+    @Published var showingScore = false
+    @Published var scoreTitle = ""
+    @Published var scoreMessage = ""
+    @Published var rotationAmount = 0.0
+    @Published var selectedFlag: String?
+    
+    enum Difficulty: String, CaseIterable {
+        case easy = "Easy"
+        case medium = "Medium"
+        case hard = "Hard"
+        
+        var flagCount: Int {
+            switch self {
+                case .easy: return 3
+                case .medium: return 4
+                case .hard: return 6
+            }
+        }
+    }
+    
+    @Published var difficulty: Difficulty = .easy
+    private let allCountryCodes: [String]
+    
+    // MARK: - Initialization
+    init(countryCodes: [String]) {
+        self.allCountryCodes = countryCodes
+        self.remainingCountryCodes = countryCodes
+        startNewRound()
+    }
+    
+    // MARK: - Public Methods
+    func startNewGame() {
+        score = 0
+        remainingCountryCodes = allCountryCodes
+        startNewRound()
+    }
+    
+    func startNewRound() {
+        currentQuizFlagCodes = populateQuizFlagCodes()
+        correctCountryCode = pickCorrectAnswer(from: currentQuizFlagCodes)
+        selectedFlag = nil
+        rotationAmount = 0
+    }
+    
+    func checkAnswer(_ selectedCode: String) {
+        selectedFlag = selectedCode
+        
+        if selectedCode == correctCountryCode {
+            score += 1
+            scoreTitle = "Correct!"
+            scoreMessage = "Your score is \(score)"
+            rotationAmount += 360
+            
+            if score > highScore {
+                highScore = score
+                UserDefaults.standard.set(highScore, forKey: "HighScore")
+            }
+        } else {
+            scoreTitle = "Wrong!"
+            scoreMessage = "That's the flag of \(generateCountryName(for: selectedCode))"
+        }
+        
+        showingScore = true
+    }
+    
+    func nextQuestion() {
+        removeCorrectAnswer(correctCountryCode)
+        
+        if remainingCountryCodes.count >= difficulty.flagCount {
+            startNewRound()
+        } else {
+            scoreTitle = "Game Over!"
+            scoreMessage = "Final score: \(score)\nHigh score: \(highScore)"
+        }
+    }
+    
+    func generateCountryFlag(for countryCode: String) -> String {
+        String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
+            UnicodeScalar(127397 + $0.value)
+        }))
+    }
+    
+    func generateCountryName(for countryCode: String) -> String {
+        Locale.current.localizedString(forRegionCode: countryCode) ?? ""
+    }
+    
+    // MARK: - Private Methods
+    private func populateQuizFlagCodes() -> [String] {
+        var codes: [String] = []
+        var tempArray = remainingCountryCodes.shuffled()
+        
+        for _ in 0..<difficulty.flagCount {
+            if let code = tempArray.popLast() {
+                codes.append(code)
+            }
+        }
+        
+        return codes
+    }
+    
+    private func pickCorrectAnswer(from array: [String]) -> String {
+        array.randomElement() ?? ""
+    }
+    
+    private func removeCorrectAnswer(_ correctCode: String) {
+        if let index = remainingCountryCodes.firstIndex(where: { $0 == correctCode }) {
+            remainingCountryCodes.remove(at: index)
+        }
+    }
 }
 
