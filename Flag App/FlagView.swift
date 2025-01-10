@@ -70,4 +70,8 @@ struct FlagView: View {
             Text(viewModel.scoreMessage)
         }
     }
-} 
+}
+
+#Preview {
+    FlagView()
+}
