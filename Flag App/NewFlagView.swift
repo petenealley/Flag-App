@@ -36,9 +36,7 @@ struct NewFlagView: View {
                             withAnimation {
                                 viewModel.checkAnswer(countryCode)
                             }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                //viewModel.startNewGame()
-                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {}
                         } label: {
                             Text(viewModel.generateCountryFlag(for: countryCode))
                                 .font(.system(size: 300))

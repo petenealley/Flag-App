@@ -23,21 +23,7 @@ class FlagViewModel: ObservableObject {
     @Published var selectedFlag: String?
     @Published var gameOver = true
     
-//    enum Difficulty: String, CaseIterable {
-//        case easy = "Easy"
-//        case medium = "Medium"
-//        case hard = "Hard"
-//        
-//        var flagCount: Int {
-//            switch self {
-//                case .easy: return 3
-//                case .medium: return 4
-//                case .hard: return 6
-//            }
-//        }
-//    }
-    
-//    @Published var difficulty: Difficulty = .easy
+    // MARK: - Private Properties
     private let allCountryCodes: [String]
     
     // MARK: - Initialization
@@ -93,17 +79,6 @@ class FlagViewModel: ObservableObject {
         
         showingScore = true
     }
-    
-//    func nextQuestion() {
-//        removeCorrectAnswer(correctCountryCode)
-//        //temporary hard code of 250 for max number countries left until game ends/
-//        if remainingCountryCodes.count >= 250 {
-//            startNewRound()
-//        } else {
-//            scoreTitle = "Game Over!"
-//            scoreMessage = "Final score: \(score)\nHigh score: \(highScore)"
-//        }
-//    }
     
     func generateCountryFlag(for countryCode: String) -> String {
         String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
