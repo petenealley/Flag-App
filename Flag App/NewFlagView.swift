@@ -39,7 +39,11 @@ struct NewFlagView: View {
                             }
                         } label: {
                             Text(viewModel.generateCountryFlag(for: countryCode))
-                                .font(.system(size: 100))
+                                .font(.system(size: 300))
+                                .padding(.vertical, -55)
+                                .padding(.horizontal, 5)
+                                .background(.black.opacity(0.5))
+                                .cornerRadius(40)
                                 .rotation3DEffect(
                                     .degrees(viewModel.selectedFlag == countryCode ? viewModel.rotationAmount : 0),
                                     axis: (x: 0, y: 1, z: 0)
