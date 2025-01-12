@@ -67,7 +67,7 @@ class FlagViewModel: ObservableObject {
             score += 10
             correctAnswers += 1
             scoreTitle = "Correct!"
-            scoreMessage = "Your score is \(score)"
+            scoreMessage = ""
             rotationAmount += 360
             
             if score > highScore {

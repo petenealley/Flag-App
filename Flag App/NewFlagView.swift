@@ -37,6 +37,9 @@ struct NewFlagView: View {
                             withAnimation {
                                 viewModel.checkAnswer(countryCode)
                             }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                                viewModel.startNewRound()
+                            }
                         } label: {
                             Text(viewModel.generateCountryFlag(for: countryCode))
                                 .font(.system(size: 300))
@@ -200,6 +203,16 @@ struct NewFlagView: View {
                     .cornerRadius(20)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(.white)
+                    .padding()
+                    .alert(viewModel.scoreTitle, isPresented: $viewModel.showingScore) {
+                        if viewModel.scoreTitle == "Game Over!" {
+                            Button("New Game", action: viewModel.startNewGame)
+                        } else {
+                            Button("Continue", action: viewModel.startNewRound)
+                        }
+                    } message: {
+                        Text(viewModel.scoreMessage)
+                    }
                     
                     //Music On/Off Switch
                     HStack {
