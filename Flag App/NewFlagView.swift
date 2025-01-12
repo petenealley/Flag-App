@@ -29,17 +29,14 @@ struct NewFlagView: View {
                 
                 Spacer()
                 
-                
-                //New Flags
+                //Flags
                 HStack {
                     ForEach(viewModel.currentQuizFlagCodes, id: \.self) { countryCode in
                         Button {
                             withAnimation {
                                 viewModel.checkAnswer(countryCode)
                             }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                                viewModel.startNewRound()
-                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {}
                         } label: {
                             Text(viewModel.generateCountryFlag(for: countryCode))
                                 .font(.system(size: 300))
@@ -51,68 +48,9 @@ struct NewFlagView: View {
                                     .degrees(viewModel.selectedFlag == countryCode ? viewModel.rotationAmount : 0),
                                     axis: (x: 0, y: 1, z: 0)
                                 )
-//                                .opacity(viewModel.selectedFlag == nil || viewModel.selectedFlag == countryCode ? 1 : 0.25)
-//                                .scaleEffect(viewModel.selectedFlag == nil || viewModel.selectedFlag == countryCode ? 1 : 0.8)
                         }
                     }
                 }
-                
-                //Flags
-                //                HStack {
-                //                    //leftFlag
-                //                    Button {
-                //                        if leftFlagCountryCode == correctAnswerCountryCode {
-                //                            pickedCorrectAnswer()
-                //                        } else {
-                //                            pickedWrongAnswer(answer: leftFlagCountryCode)
-                //                        }
-                //                        currentScore = (correctAnswers-wrongAnswers) * 10
-                //                    } label: {
-                //                        Text(leftFlag)
-                //                            .font(.system(size: 300))
-                //                            .padding(.vertical, -55)
-                //                            .padding(.horizontal, 5)
-                //                            .background(.black.opacity(0.5))
-                //                            .cornerRadius(40)
-                //                    }
-                //                    .disabled(gameOver)
-                //                    //centerFlag
-                //                    Button {
-                //
-                //                        if centerFlagCountryCode == correctAnswerCountryCode {
-                //                            pickedCorrectAnswer()
-                //                        } else {
-                //                            pickedWrongAnswer(answer: centerFlagCountryCode)
-                //                        }
-                //                        currentScore = (correctAnswers-wrongAnswers) * 10
-                //                    }
-                //                    label: {
-                //                        Text(centerFlag)
-                //                            .font(.system(size: 300))
-                //                            .padding(.vertical, -55)
-                //                            .padding(.horizontal, 5)
-                //                            .background(.black.opacity(0.5))
-                //                            .cornerRadius(40)
-                //                    }
-                //                    .disabled(gameOver)
-                //                    //rightFlag
-                //                    Button {
-                //                            if rightFlagCountryCode == correctAnswerCountryCode {
-                //                                pickedCorrectAnswer()
-                //                            } else {
-                //                                pickedWrongAnswer(answer: rightFlagCountryCode)
-                //                            }
-                //                        currentScore = (correctAnswers-wrongAnswers) * 10
-                //                    } label: {
-                //                        Text(rightFlag)
-                //                            .font(.system(size: 300))
-                //                            .padding(.vertical, -55)
-                //                            .padding(.horizontal, 5)
-                //                            .background(.black.opacity(0.5))
-                //                            .cornerRadius(40)
-                //                    }
-                //                    .disabled(gameOver)
-                //                }
                 
                 //Challenge
                 HStack {
@@ -129,51 +67,15 @@ struct NewFlagView: View {
                 .font(.system(size: 48))
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 
-                //                //Buttons to Start Pause & Stop
-                //                HStack {
-                //                    //Start Button
-                //                    Button("Start") {
-                //                        gameOver = false
-                ////                        playGame()
-                //                        print(remainingCountryCodes)
-                //                        print(currentQuizFlagCodes)
-                //                    }
-                //                    .buttonStyle(.borderedProminent)
-                //                    .tint(.green)
-                //                    .font(.largeTitle)
-                //                    .padding()
-                //                    .disabled(!gameOver)
-                //
-                ////                    //Pause Button
-                ////                    Button("Pause") {
-                ////                    }
-                ////                    .buttonStyle(.borderedProminent)
-                ////                    .tint(.yellow)
-                ////                    .font(.largeTitle)
-                ////                    .padding()
-                ////                    .disabled(gameOver)
-                //
-                //                    //End Button
-                //                    Button("End") {
-                //                        gameOver = true
-                //                        print("gameOver = \(gameOver)")
-                //                    }
-                //                    .buttonStyle(.borderedProminent)
-                //                    .tint(.red)
-                //                    .font(.largeTitle)
-                //                    .padding()
-                //                    .disabled(gameOver)
-                //                }
-                //                .foregroundColor(.white)
-                //                .fontWeight(.bold)
-                
-                //                Spacer()
-                
-                //Score Info
+                //Timer + Score Info + Music & High Score
                 HStack {
                     
                     //Timer
+                    VStack {
+                        
+                    }
                     
+                    //Score Info
                     VStack {
                         //Current Score
                         Text("Current Score:  \(viewModel.score)")
@@ -182,54 +84,53 @@ struct NewFlagView: View {
                             .padding(.bottom)
                             .fontWeight(.bold)
                         
-                        
                         //Number of Correct Guesses
                         Text("Correct Guesses:  \(viewModel.correctAnswers)")
                             .font(.title)
                             .fontWeight(.bold)
-                        
                         
                         //Number of Incorrect Guesses
                         Text("Incorrect Guesses:  \(viewModel.wrongAnswers)")
                             .font(.title)
                             .padding(.bottom)
                             .fontWeight(.bold)
-                        
-                        
                     }
                     .frame(width: 400)
-                    //                .frame(alignment: .leading)
                     .background(.indigo.opacity(0.9))
                     .cornerRadius(20)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(.white)
                     .padding()
-                    .alert(viewModel.scoreTitle, isPresented: $viewModel.showingScore) {
-                        if viewModel.scoreTitle == "Game Over!" {
-                            Button("New Game", action: viewModel.startNewGame)
-                        } else {
-                            Button("Continue", action: viewModel.startNewRound)
+                    
+                    VStack {
+                        //High Score
+                        
+                        //Music On/Off Switch
+                        HStack {
+                            //Music Icon On
+                            
+                            //Switch
+                            
+                            //Music Icon Off
                         }
-                    } message: {
-                        Text(viewModel.scoreMessage)
                     }
-                    
-                    //Music On/Off Switch
-                    HStack {
-                        //Music Icon On
-                        
-                        //Switch
-                        
-                        //Music Icon Off
-                    }
-                    
+
                 }
-                
                 
                 Spacer()
                 
             }
             .foregroundColor(.black)
+        }
+        //Alert Message Management (on ZStack)
+        .alert(viewModel.scoreTitle, isPresented: $viewModel.showingScore) {
+            if viewModel.scoreTitle == "Game Over!" {
+                Button("New Game", action: viewModel.startNewGame)
+            } else {
+                Button("Continue", action: viewModel.startNewRound)
+            }
+        } message: {
+            Text(viewModel.scoreMessage)
         }
     }
 }

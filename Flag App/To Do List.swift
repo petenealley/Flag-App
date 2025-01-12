@@ -5,11 +5,7 @@
 //  Created by Pete Nealley on 1/7/25.
 //
 
-//Fix the "Start" Button
-
 //Add functionality to the "End" Button
-
-//Add Message/Feedback Funtionality
 
 //Add a Game Timer
 
@@ -17,8 +13,7 @@
 
 //Add Pause Button
 
-//Add Top Score Info
+//Add High Score Info
 
-//Refactor to MVVM
 
 
