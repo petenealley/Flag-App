@@ -234,6 +234,6 @@ struct NewFlagView: View {
     }
 }
 
-#Preview {
+#Preview (traits: .landscapeRight) {
     NewFlagView()
 }
