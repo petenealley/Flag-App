@@ -13,7 +13,8 @@ struct Flag_AppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            FlagView()
+//            FlagView()
+            NewFlagView()
         }
     }
 }

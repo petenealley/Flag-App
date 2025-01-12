@@ -13,6 +13,8 @@ class FlagViewModel: ObservableObject {
     @Published private(set) var correctCountryCode: String = ""
     @Published private(set) var remainingCountryCodes: [String] = []
     @Published private(set) var score = 0
+    @Published private(set) var correctAnswers = 0
+    @Published private(set) var wrongAnswers = 0
     @Published private(set) var highScore = UserDefaults.standard.integer(forKey: "HighScore")
     @Published var showingScore = false
     @Published var scoreTitle = ""
@@ -62,7 +64,8 @@ class FlagViewModel: ObservableObject {
         selectedFlag = selectedCode
         
         if selectedCode == correctCountryCode {
-            score += 1
+            score += 10
+            correctAnswers += 1
             scoreTitle = "Correct!"
             scoreMessage = "Your score is \(score)"
             rotationAmount += 360
@@ -72,6 +75,8 @@ class FlagViewModel: ObservableObject {
                 UserDefaults.standard.set(highScore, forKey: "HighScore")
             }
         } else {
+            score -= 10
+            wrongAnswers += 1
             scoreTitle = "Wrong!"
             scoreMessage = "That's the flag of \(generateCountryName(for: selectedCode))"
         }
