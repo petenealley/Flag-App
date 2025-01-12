@@ -36,7 +36,9 @@ struct NewFlagView: View {
                             withAnimation {
                                 viewModel.checkAnswer(countryCode)
                             }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {}
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                //viewModel.startNewGame()
+                            }
                         } label: {
                             Text(viewModel.generateCountryFlag(for: countryCode))
                                 .font(.system(size: 300))
@@ -48,6 +50,7 @@ struct NewFlagView: View {
                                     .degrees(viewModel.selectedFlag == countryCode ? viewModel.rotationAmount : 0),
                                     axis: (x: 0, y: 1, z: 0)
                                 )
+                                .disabled(viewModel.gameOver)
                         }
                     }
                 }

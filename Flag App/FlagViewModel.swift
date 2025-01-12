@@ -21,43 +21,46 @@ class FlagViewModel: ObservableObject {
     @Published var scoreMessage = ""
     @Published var rotationAmount = 0.0
     @Published var selectedFlag: String?
+    @Published var gameOver = true
     
-    enum Difficulty: String, CaseIterable {
-        case easy = "Easy"
-        case medium = "Medium"
-        case hard = "Hard"
-        
-        var flagCount: Int {
-            switch self {
-                case .easy: return 3
-                case .medium: return 4
-                case .hard: return 6
-            }
-        }
-    }
+//    enum Difficulty: String, CaseIterable {
+//        case easy = "Easy"
+//        case medium = "Medium"
+//        case hard = "Hard"
+//        
+//        var flagCount: Int {
+//            switch self {
+//                case .easy: return 3
+//                case .medium: return 4
+//                case .hard: return 6
+//            }
+//        }
+//    }
     
-    @Published var difficulty: Difficulty = .easy
+//    @Published var difficulty: Difficulty = .easy
     private let allCountryCodes: [String]
     
     // MARK: - Initialization
     init(countryCodes: [String]) {
         self.allCountryCodes = countryCodes
         self.remainingCountryCodes = countryCodes
-        startNewRound()
+        startNewGame()
     }
     
     // MARK: - Public Methods
     func startNewGame() {
         score = 0
+        correctAnswers = 0
+        wrongAnswers = 0
         remainingCountryCodes = allCountryCodes
         startNewRound()
     }
     
     func startNewRound() {
-        currentQuizFlagCodes = populateQuizFlagCodes()
-        correctCountryCode = pickCorrectAnswer(from: currentQuizFlagCodes)
-        selectedFlag = nil
-        rotationAmount = 0
+            currentQuizFlagCodes = populateQuizFlagCodes()
+            correctCountryCode = pickCorrectAnswer(from: currentQuizFlagCodes)
+            selectedFlag = nil
+            rotationAmount = 0
     }
     
     func checkAnswer(_ selectedCode: String) {
@@ -69,6 +72,7 @@ class FlagViewModel: ObservableObject {
             scoreTitle = "Correct!"
             scoreMessage = ""
             rotationAmount += 360
+            removeCorrectAnswer(correctCountryCode)
             
             if score > highScore {
                 highScore = score
@@ -81,19 +85,25 @@ class FlagViewModel: ObservableObject {
             scoreMessage = "That's the flag of \(generateCountryName(for: selectedCode))"
         }
         
-        showingScore = true
-    }
-    
-    func nextQuestion() {
-        removeCorrectAnswer(correctCountryCode)
-        
-        if remainingCountryCodes.count >= difficulty.flagCount {
-            startNewRound()
-        } else {
+        if remainingCountryCodes.count < 255 {
+            gameOver = true
             scoreTitle = "Game Over!"
             scoreMessage = "Final score: \(score)\nHigh score: \(highScore)"
         }
+        
+        showingScore = true
     }
+    
+//    func nextQuestion() {
+//        removeCorrectAnswer(correctCountryCode)
+//        //temporary hard code of 250 for max number countries left until game ends/
+//        if remainingCountryCodes.count >= 250 {
+//            startNewRound()
+//        } else {
+//            scoreTitle = "Game Over!"
+//            scoreMessage = "Final score: \(score)\nHigh score: \(highScore)"
+//        }
+//    }
     
     func generateCountryFlag(for countryCode: String) -> String {
         String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
@@ -110,7 +120,7 @@ class FlagViewModel: ObservableObject {
         var codes: [String] = []
         var tempArray = remainingCountryCodes.shuffled()
         
-        for _ in 0..<difficulty.flagCount {
+        for _ in 0...2 {
             if let code = tempArray.popLast() {
                 codes.append(code)
             }

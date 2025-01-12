@@ -5,13 +5,11 @@
 //  Created by Pete Nealley on 1/7/25.
 //
 
-//Add functionality to the "End" Button
-
 //Add a Game Timer
 
-//Add Game Music & Toggle Switch
-
 //Add Pause Button
+
+//Add Game Music & Toggle Switch
 
 //Add High Score Info
 
