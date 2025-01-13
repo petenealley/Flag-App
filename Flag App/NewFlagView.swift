@@ -11,6 +11,8 @@ struct NewFlagView: View {
         countryCodes: Array(Locale.Region.isoRegions.filter { $0.subRegions.isEmpty }.map { $0.identifier })
     )
     
+    let timerObject = TimerObject(timerColor: .indigo, length: 120)
+    
     var body: some View {
         ZStack {
             //Background Image
@@ -73,7 +75,10 @@ struct NewFlagView: View {
                     
                     //Timer
                     VStack {
-                        
+                        TimerView(timerObject: timerObject, controls: true)
+                            .frame(width: 200)
+                            .padding(.leading, 0)
+                            .padding(.bottom, 40)
                     }
                     
                     //Score Info
@@ -99,9 +104,9 @@ struct NewFlagView: View {
                     .frame(width: 400)
                     .background(.indigo.opacity(0.9))
                     .cornerRadius(20)
-                    .frame(maxWidth: .infinity)
+//                    .frame(maxWidth: .infinity)
                     .foregroundColor(.white)
-                    .padding()
+                    .padding(.leading, 50)
                     
                     VStack {
                         //High Score
@@ -115,10 +120,7 @@ struct NewFlagView: View {
                             //Music Icon Off
                         }
                     }
-
                 }
-                
-                Spacer()
                 
             }
             .foregroundColor(.black)
