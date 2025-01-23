@@ -42,6 +42,10 @@ struct NewFlagView: View {
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {}
                             viewModel.checkTimeRemaining(gameTimeRemaining: timerObject.remainingTime)
+                            if timerObject.remainingTime == 0 {
+                                timerObject.stopTimer()
+                                timerObject.resetTimer()
+                            }
                         } label: {
                             Text(viewModel.generateCountryFlag(for: countryCode))
                                 .font(.system(size: 300))
@@ -211,7 +215,7 @@ struct NewFlagView: View {
 
 #Preview (traits: .landscapeRight) {
     NewFlagView()
-        .environment(TimerObject(timerColor: .indigo, length: 120))
+        .environment(TimerObject(timerColor: .indigo, length: 10))
 }
 
 struct ControlButtonStyle: ViewModifier {

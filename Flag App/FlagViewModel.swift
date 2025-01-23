@@ -41,7 +41,7 @@ class FlagViewModel: ObservableObject {
     
     func checkTimeRemaining(gameTimeRemaining: Int) {
         if gameTimeRemaining == 0 {
-            gameOver = false
+            gameOver = true
         }
     }
     

@@ -10,7 +10,7 @@ import SwiftUI
 @main
 
 struct Flag_AppApp: App {
-    @State private var timerObject = TimerObject(timerColor: .indigo, length: 120)
+    @State private var timerObject = TimerObject(timerColor: .indigo, length: 10)
     var body: some Scene {
         WindowGroup {
             NewFlagView()
