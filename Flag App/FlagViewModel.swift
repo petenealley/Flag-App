@@ -6,8 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
+
+
 
 class FlagViewModel: ObservableObject {
+    
     // MARK: - Published Properties
     @Published private(set) var currentQuizFlagCodes: [String] = []
     @Published private(set) var correctCountryCode: String = ""
@@ -21,7 +25,7 @@ class FlagViewModel: ObservableObject {
     @Published var scoreMessage = ""
     @Published var rotationAmount = 0.0
     @Published var selectedFlag: String?
-    @Published var gameOver = true
+    @Published var gameOver = false
     
     // MARK: - Private Properties
     private let allCountryCodes: [String]
@@ -34,7 +38,15 @@ class FlagViewModel: ObservableObject {
     }
     
     // MARK: - Public Methods
+    
+    func checkTimeRemaining(gameTimeRemaining: Int) {
+        if gameTimeRemaining == 0 {
+            gameOver = false
+        }
+    }
+    
     func startNewGame() {
+        gameOver = false
         score = 0
         correctAnswers = 0
         wrongAnswers = 0
@@ -71,8 +83,7 @@ class FlagViewModel: ObservableObject {
             scoreMessage = "That's the flag of \(generateCountryName(for: selectedCode))"
         }
         
-        if remainingCountryCodes.count < 255 {
-            gameOver = true
+        if remainingCountryCodes.count < 255 || gameOver {
             scoreTitle = "Game Over!"
             scoreMessage = "Final score: \(score)\nHigh score: \(highScore)"
         }
