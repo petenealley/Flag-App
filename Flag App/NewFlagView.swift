@@ -82,6 +82,31 @@ struct NewFlagView: View {
                     
                     //Timer
                     VStack {
+                        //Controls
+                        if controls {
+                            HStack {
+                                Button {
+                                    timerObject.startTimer()
+                                } label: {
+                                    Image(systemName: "play.fill")
+                                }
+                                .modifier(ControlButtonStyle(color: timerObject.timerColor, disabled: timerObject.playButtonDisabled))
+                                
+                                Button {
+                                    timerObject.stopTimer()
+                                } label: {
+                                    Image(systemName: "pause.fill")
+                                }
+                                .modifier(ControlButtonStyle(color: timerObject.timerColor, disabled: timerObject.pauseButtonDisabled))
+                                
+                                Button {
+                                    timerObject.resetTimer()
+                                } label: {
+                                    Image(systemName: "gobackward")
+                                }
+                                .modifier(ControlButtonStyle(color: timerObject.timerColor, disabled: timerObject.resetButtonDisabled))
+                            }
+                        }
                         ZStack {
                             Circle()
                                 .stroke(lineWidth: width / 10)
@@ -119,31 +144,6 @@ struct NewFlagView: View {
                         .padding(width / 8)
                         .animation(.linear, value: timerObject.remainingTime)
                         
-                        if controls {
-                            HStack {
-                                Button {
-                                    timerObject.startTimer()
-                                } label: {
-                                    Image(systemName: "play.fill")
-                                }
-                                .modifier(ControlButtonStyle(color: timerObject.timerColor, disabled: timerObject.playButtonDisabled))
-                                
-                                Button {
-                                    timerObject.stopTimer()
-                                } label: {
-                                    Image(systemName: "pause.fill")
-                                }
-                                .modifier(ControlButtonStyle(color: timerObject.timerColor, disabled: timerObject.pauseButtonDisabled))
-                                
-                                Button {
-                                    timerObject.resetTimer()
-                                } label: {
-                                    Image(systemName: "gobackward")
-                                }
-                                .modifier(ControlButtonStyle(color: timerObject.timerColor, disabled: timerObject.resetButtonDisabled))
-                                
-                            }
-                        }
                             
                     }
                     .frame(width: 200)
@@ -224,8 +224,8 @@ struct ControlButtonStyle: ViewModifier {
     func body(content: Content) -> some View {
         content.font(.title)
             .bold()
-            .frame(width: 50, height: 50)
-            .background(color).opacity(disabled ? 0.5 : 1)
+            .frame(width: 75, height: 75)
+            .background(.red).opacity(disabled ? 0.5 : 1)
             .foregroundStyle(.white)
             .clipShape(Circle())
             .disabled(disabled)
