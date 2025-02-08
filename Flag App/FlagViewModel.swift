@@ -9,23 +9,23 @@ import Foundation
 import SwiftUI
 
 
-
-class FlagViewModel: ObservableObject {
+@Observable
+class FlagViewModel {
     
     // MARK: - Published Properties
-    @Published private(set) var currentQuizFlagCodes: [String] = []
-    @Published private(set) var correctCountryCode: String = ""
-    @Published private(set) var remainingCountryCodes: [String] = []
-    @Published private(set) var score = 0
-    @Published private(set) var correctAnswers = 0
-    @Published private(set) var wrongAnswers = 0
-    @Published private(set) var highScore = UserDefaults.standard.integer(forKey: "HighScore")
-    @Published var showingScore = false
-    @Published var scoreTitle = ""
-    @Published var scoreMessage = ""
-    @Published var rotationAmount = 0.0
-    @Published var selectedFlag: String?
-    @Published var gameOver = false
+    private(set) var currentQuizFlagCodes: [String] = []
+    private(set) var correctCountryCode: String = ""
+    private(set) var remainingCountryCodes: [String] = []
+    private(set) var score = 0
+    private(set) var correctAnswers = 0
+    private(set) var wrongAnswers = 0
+    private(set) var highScore = UserDefaults.standard.integer(forKey: "HighScore")
+    var showingScore = false
+    var scoreTitle = ""
+    var scoreMessage = ""
+    var rotationAmount = 0.0
+    var selectedFlag: String?
+    var gameOver = false
     
     // MARK: - Private Properties
     private let allCountryCodes: [String]
