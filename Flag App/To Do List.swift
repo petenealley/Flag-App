@@ -5,13 +5,12 @@
 //  Created by Pete Nealley on 1/7/25.
 //
 
-//Add a Game Timer
-
-//Add Pause Button
+//Fix Game Play to include Timer
 
 //Add Game Music & Toggle Switch
 
-//Add High Score Info
+//Refactor
+
 
 
 
