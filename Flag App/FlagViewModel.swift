@@ -25,7 +25,7 @@ class FlagViewModel {
     var scoreMessage = ""
     var rotationAmount = 0.0
     var selectedFlag: String?
-    var gameOver = true
+//    var gameOver = true
     var gamePaused = true
     
     // MARK: - Private Properties
@@ -40,10 +40,14 @@ class FlagViewModel {
     
     // MARK: - Public Methods
     
-    func checkTimeRemaining(gameTimeRemaining: Int) {
-        if gameTimeRemaining == 0 {
-            gameOver = true
-        }
+//    func checkTimeRemaining(gameTimeRemaining: Int) {
+//        if gameTimeRemaining == 0 {
+//            gameOver = true
+//        }
+//    }
+    
+    func gameOver() {
+        gamePaused = true
     }
     
     func startNewGame() {
@@ -85,7 +89,7 @@ class FlagViewModel {
             scoreMessage = "That's the flag of \(generateCountryName(for: selectedCode))"
         }
         
-        if remainingCountryCodes.count < 255 || gameOver {
+        if remainingCountryCodes.count < 4 {
             scoreTitle = "Game Over!"
             scoreMessage = "Final score: \(score)\nHigh score: \(highScore)"
         }

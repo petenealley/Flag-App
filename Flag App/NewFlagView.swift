@@ -41,11 +41,12 @@ struct NewFlagView: View {
                                 viewModel.checkAnswer(countryCode)
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {}
-                            viewModel.checkTimeRemaining(gameTimeRemaining: timerObject.remainingTime)
+//                            viewModel.checkTimeRemaining(gameTimeRemaining: timerObject.remainingTime)
                             if timerObject.remainingTime == 0 {
-                                timerObject.stopTimer()
-                                timerObject.resetTimer()
-//                                viewModel.gameOver(true)
+                                viewModel.gamePaused = true
+//                                timerObject.stopTimer()
+//                                timerObject.resetTimer()
+                                
                             }
                         }
                         label: {
@@ -215,7 +216,7 @@ struct NewFlagView: View {
         //Alert Message Management (on ZStack)
         .alert(viewModel.scoreTitle, isPresented: $viewModel.showingScore) {
             if viewModel.scoreTitle == "Game Over!" {
-                Button("New Game", action: viewModel.startNewGame)
+                Button("Game Over", action: viewModel.gameOver)
             } else {
                 Button("Continue", action: viewModel.startNewRound)
             }
