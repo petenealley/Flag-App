@@ -179,7 +179,10 @@ struct NewFlagView: View {
                     
                     VStack {
                         //High Score
-                        
+                        Text("High Score:  \(viewModel.highScore)")
+                            .font(.title)
+                            .padding()
+                            .fontWeight(.bold)
                         //Music On/Off Switch
                         HStack {
                             //Music Icon On
@@ -189,6 +192,12 @@ struct NewFlagView: View {
                             //Music Icon Off
                         }
                     }
+                    .frame(width: 250)
+                    .background(.green.opacity(1))
+                    .cornerRadius(20)
+//                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.white)
+                    .padding(.leading, 50)
                 }
                 
             }
