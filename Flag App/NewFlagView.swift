@@ -45,8 +45,10 @@ struct NewFlagView: View {
                             if timerObject.remainingTime == 0 {
                                 timerObject.stopTimer()
                                 timerObject.resetTimer()
+//                                viewModel.gameOver(true)
                             }
-                        } label: {
+                        }
+                        label: {
                             Text(viewModel.generateCountryFlag(for: countryCode))
                                 .font(.system(size: 300))
                                 .padding(.vertical, -55)
@@ -57,10 +59,10 @@ struct NewFlagView: View {
                                     .degrees(viewModel.selectedFlag == countryCode ? viewModel.rotationAmount : 0),
                                     axis: (x: 0, y: 1, z: 0)
                                 )
-                                .disabled(viewModel.gameOver)
                         }
                     }
                 }
+                .disabled(viewModel.gamePaused)
                 
                 //Challenge
                 HStack {
@@ -85,28 +87,35 @@ struct NewFlagView: View {
                         //Controls
                         if controls {
                             HStack {
+                                //Start Button
                                 Button {
+                                    viewModel.gamePaused = false
                                     timerObject.startTimer()
                                 } label: {
                                     Image(systemName: "play.fill")
                                 }
                                 .modifier(ControlButtonStyle(color: timerObject.timerColor, disabled: timerObject.playButtonDisabled))
                                 
+                                //Pause Button
                                 Button {
+                                    viewModel.gamePaused = true
                                     timerObject.stopTimer()
                                 } label: {
                                     Image(systemName: "pause.fill")
                                 }
                                 .modifier(ControlButtonStyle(color: timerObject.timerColor, disabled: timerObject.pauseButtonDisabled))
                                 
+                                //Reset Button
                                 Button {
                                     timerObject.resetTimer()
+                                    viewModel.startNewGame()
                                 } label: {
                                     Image(systemName: "gobackward")
                                 }
                                 .modifier(ControlButtonStyle(color: timerObject.timerColor, disabled: timerObject.resetButtonDisabled))
                             }
                         }
+                        //Timer Countdown Circle
                         ZStack {
                             Circle()
                                 .stroke(lineWidth: width / 10)

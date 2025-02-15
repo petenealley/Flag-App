@@ -25,7 +25,8 @@ class FlagViewModel {
     var scoreMessage = ""
     var rotationAmount = 0.0
     var selectedFlag: String?
-    var gameOver = false
+    var gameOver = true
+    var gamePaused = true
     
     // MARK: - Private Properties
     private let allCountryCodes: [String]
@@ -46,7 +47,8 @@ class FlagViewModel {
     }
     
     func startNewGame() {
-        gameOver = false
+//        gameOver = false
+        gamePaused = true
         score = 0
         correctAnswers = 0
         wrongAnswers = 0

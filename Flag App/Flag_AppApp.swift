@@ -11,6 +11,10 @@ import SwiftUI
 
 struct Flag_AppApp: App {
     @State private var timerObject = TimerObject(timerColor: .indigo, length: 10)
+    init() {
+        
+    }
+    
     var body: some Scene {
         WindowGroup {
             NewFlagView()
