@@ -11,6 +11,8 @@ struct NewFlagView: View {
         countryCodes: Array(Locale.Region.isoRegions.filter { $0.subRegions.isEmpty }.map { $0.identifier })
     )
     
+    @State var isMusicOn = true
+    
     @Environment(TimerObject.self) var timerObject
     let controls = true
     @State private var width: CGFloat = 0
@@ -186,25 +188,43 @@ struct NewFlagView: View {
                     
                     VStack {
                         //High Score
-                        Text("High Score:  \(viewModel.highScore)")
-                            .font(.title)
-                            .padding()
-                            .fontWeight(.bold)
-                        
-                        //Music On/Off Switch
-                        HStack {
-                            //Music Icon On
-                            
-                            //Switch
-                            
-                            //Music Icon Off
+                        VStack {
+                            Text("High Score:  \(viewModel.highScore)")
+                                .font(.title)
+                                .padding()
+                                .fontWeight(.bold)
                         }
+                        .frame(width: 250)
+                        .background(.green.opacity(1))
+                        .cornerRadius(20)
+                        .foregroundColor(.white)
+                        .padding(.leading, 50)
+                        
+                        
+                        //Game Settings Panel
+                        HStack {
+                            //Music On/Off Icon
+                            Toggle("Music", systemImage: isMusicOn ? "speaker.circle" : "speaker.slash.circle", isOn: $isMusicOn)
+                                .tint(.white.opacity(0.0))
+                                .font(.system(size: 60))
+                                .padding()
+                                .toggleStyle(.button)
+                                .contentTransition(.symbolEffect)
+                                .labelStyle(.iconOnly)
+                            
+                            //Timer Icon/Slder
+
+                            
+                        }
+                        .frame(width: 250)
+                        .background(.white)
+                        .cornerRadius(20)
+                        .foregroundColor(.black)
+                        .padding(.leading, 50)
+            
+
                     }
-                    .frame(width: 250)
-                    .background(.green.opacity(1))
-                    .cornerRadius(20)
-                    .foregroundColor(.white)
-                    .padding(.leading, 50)
+
                 }
                 
             }
