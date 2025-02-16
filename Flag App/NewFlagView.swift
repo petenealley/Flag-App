@@ -2,7 +2,7 @@
 //  NewFlagView.swift
 //  Flag App
 //
-//  Created by Pete Nealley on 1/12/25.
+//  Created by Paul Jordan on 1/12/25.
 //
 import SwiftUI
 
@@ -12,6 +12,7 @@ struct NewFlagView: View {
     )
     
     @State var isMusicOn = true
+    @State var selectedTimerIndex: Int = 10
     
     @Environment(TimerObject.self) var timerObject
     let controls = true
@@ -213,7 +214,6 @@ struct NewFlagView: View {
                                 .labelStyle(.iconOnly)
                             
                             //Timer Icon/Slder
-
                             
                         }
                         .frame(width: 250)
@@ -251,7 +251,7 @@ struct NewFlagView: View {
 
 #Preview (traits: .landscapeRight) {
     NewFlagView()
-        .environment(TimerObject(timerColor: .indigo, length: 10))
+        .environment(TimerObject(timerColor: .indigo, length: 120))
 }
 
 struct ControlButtonStyle: ViewModifier {

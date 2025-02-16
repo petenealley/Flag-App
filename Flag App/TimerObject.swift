@@ -2,7 +2,7 @@
 //  TimerObject.swift
 //  Timer App
 //
-//  Created by Pete Nealley on 1/12/25.
+//  Created by Paul Jordan on 1/12/25.
 //
 
 import SwiftUI

@@ -2,7 +2,7 @@
 //  FlagViewModel.swift
 //  Flag App
 //
-//  Created by Pete Nealley on 1/5/25.
+//  Created by Paul Jordan on 1/5/25.
 //
 
 import Foundation

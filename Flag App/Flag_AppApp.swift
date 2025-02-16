@@ -2,7 +2,7 @@
 //  Flag_AppApp.swift
 //  Flag App
 //
-//  Created by Pete Nealley on 1/3/25.
+//  Created by Paul Jordan on 1/3/25.
 //
 
 import SwiftUI
@@ -10,7 +10,7 @@ import SwiftUI
 @main
 
 struct Flag_AppApp: App {
-    @State private var timerObject = TimerObject(timerColor: .indigo, length: 10)
+    @State private var timerObject = TimerObject(timerColor: .indigo, length: 120)
     init() {
         
     }
