@@ -6,9 +6,11 @@
 //
 
 
-//Add Game Music & Toggle Switch
+//Add Game Music Functionality
 
-//Add "Game Setting" Button which sets game time limit - including "infinty play" & resets High Score to zero
+//Add "Timer" Slider which sets game time limit - including "infinty play" & resets High Score to zero
+
+//Adjust High Score Capture to end of game only
 
 //Refactor
 
