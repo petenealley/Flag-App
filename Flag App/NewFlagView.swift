@@ -38,7 +38,7 @@ struct NewFlagView: View {
                     ForEach(viewModel.currentQuizFlagCodes, id: \.self) { countryCode in
                         Button {
                             withAnimation {
-                                viewModel.checkAnswer(countryCode)
+                                viewModel.checkAnswer(countryCode, remainingTime: timerObject.remainingTime)
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {}
 //                            viewModel.checkTimeRemaining(gameTimeRemaining: timerObject.remainingTime)

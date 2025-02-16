@@ -67,7 +67,7 @@ class FlagViewModel {
             rotationAmount = 0
     }
     
-    func checkAnswer(_ selectedCode: String) {
+    func checkAnswer(_ selectedCode: String, remainingTime: Int) {
         selectedFlag = selectedCode
         
         if selectedCode == correctCountryCode {
@@ -89,7 +89,7 @@ class FlagViewModel {
             scoreMessage = "That's the flag of \(generateCountryName(for: selectedCode))"
         }
         
-        if remainingCountryCodes.count < 4 {
+        if remainingCountryCodes.count < 4 || remainingTime < 1 {
             scoreTitle = "Game Over!"
             scoreMessage = "Final score: \(score)\nHigh score: \(highScore)"
         }
