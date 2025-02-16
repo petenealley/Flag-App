@@ -41,11 +41,9 @@ struct NewFlagView: View {
                                 viewModel.checkAnswer(countryCode, remainingTime: timerObject.remainingTime)
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {}
-//                            viewModel.checkTimeRemaining(gameTimeRemaining: timerObject.remainingTime)
+
                             if timerObject.remainingTime == 0 {
                                 viewModel.gamePaused = true
-//                                timerObject.stopTimer()
-//                                timerObject.resetTimer()
                                 
                             }
                         }
@@ -183,7 +181,6 @@ struct NewFlagView: View {
                     .frame(width: 400)
                     .background(.indigo.opacity(0.9))
                     .cornerRadius(20)
-//                    .frame(maxWidth: .infinity)
                     .foregroundColor(.white)
                     .padding(.leading, 50)
                     
@@ -193,6 +190,7 @@ struct NewFlagView: View {
                             .font(.title)
                             .padding()
                             .fontWeight(.bold)
+                        
                         //Music On/Off Switch
                         HStack {
                             //Music Icon On
@@ -205,7 +203,6 @@ struct NewFlagView: View {
                     .frame(width: 250)
                     .background(.green.opacity(1))
                     .cornerRadius(20)
-//                    .frame(maxWidth: .infinity)
                     .foregroundColor(.white)
                     .padding(.leading, 50)
                 }
