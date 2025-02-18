@@ -5,6 +5,7 @@
 //  Created by Paul Jordan on 1/12/25.
 //
 import SwiftUI
+import AVKit
 
 struct NewFlagView: View {
     @State private var viewModel = FlagViewModel(
@@ -12,7 +13,7 @@ struct NewFlagView: View {
     )
     
     @State var isMusicOn = true
-    @State var selectedTimerIndex: Int = 10
+    @State var count = 1
     
     @Environment(TimerObject.self) var timerObject
     let controls = true
@@ -93,6 +94,12 @@ struct NewFlagView: View {
                                 Button {
                                     viewModel.gamePaused = false
                                     timerObject.startTimer()
+                                    
+                                    if isMusicOn {
+                                        //start music playing here
+                                        playSound(sound: "song1", type: "mp3")
+                                    }
+                                    
                                 } label: {
                                     Image(systemName: "play.fill")
                                 }
@@ -102,6 +109,12 @@ struct NewFlagView: View {
                                 Button {
                                     viewModel.gamePaused = true
                                     timerObject.stopTimer()
+                                    
+                                    if isMusicOn {
+                                        //pause music playing here
+                                        audioPlayer?.pause()
+                                    }
+                                    
                                 } label: {
                                     Image(systemName: "pause.fill")
                                 }
@@ -212,6 +225,12 @@ struct NewFlagView: View {
                                 .toggleStyle(.button)
                                 .contentTransition(.symbolEffect)
                                 .labelStyle(.iconOnly)
+                                .onTapGesture {
+                                    isMusicOn.toggle()
+                                    if !isMusicOn {
+//stop music palying here
+                                    }
+                                }
                             
                             //Timer Icon/Slder
                             
@@ -229,6 +248,9 @@ struct NewFlagView: View {
                 
             }
             .foregroundColor(.black)
+            .onAppear(perform: {
+                
+            })
         }
         //Alert Message Management (on ZStack)
         .alert(viewModel.scoreTitle, isPresented: $viewModel.showingScore) {
@@ -241,6 +263,7 @@ struct NewFlagView: View {
             Text(viewModel.scoreMessage)
         }
     }
+        
     func displayTime(_ totalSeconds: Int) -> String {
         let minutes = totalSeconds / 60
         let seconds = totalSeconds % 60
