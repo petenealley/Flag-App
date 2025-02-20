@@ -19,6 +19,8 @@ struct NewFlagView: View {
     let controls = true
     @State private var width: CGFloat = 0
     
+    @State private var musicPlayer = MusicPlayer()
+    
     var body: some View {
         ZStack {
             //Background Image
@@ -94,10 +96,11 @@ struct NewFlagView: View {
                                 Button {
                                     viewModel.gamePaused = false
                                     timerObject.startTimer()
+                                    musicPlayer.setupAudio()
                                     
                                     if isMusicOn {
                                         //start music playing here
-                                        playSound(sound: "song1", type: "mp3")
+                                        musicPlayer.playSong()
                                     }
                                     
                                 } label: {
@@ -112,7 +115,7 @@ struct NewFlagView: View {
                                     
                                     if isMusicOn {
                                         //pause music playing here
-                                        audioPlayer?.pause()
+                                        musicPlayer.pauseSong()
                                     }
                                     
                                 } label: {
