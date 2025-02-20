@@ -36,6 +36,16 @@ class MusicPlayer {
         } catch {
             print("Error loading audio file: \(error)")
         }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(
+                .playback,
+                mode: .default,
+                options: []
+                )
+        } catch {
+            print("Error setting audio session category: \(error)")
+        }
     }
     
     func playSong() {

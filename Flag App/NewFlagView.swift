@@ -250,7 +250,8 @@ struct NewFlagView: View {
             .foregroundColor(.black)
             .onAppear(perform: {
                 musicPlayer.setupAudio()
-            })
+            }
+            )
         }
         //Alert Message Management (on ZStack)
         .alert(viewModel.scoreTitle, isPresented: $viewModel.showingScore) {
