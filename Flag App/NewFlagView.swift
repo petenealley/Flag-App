@@ -13,15 +13,15 @@ struct NewFlagView: View {
     )
     
     @State var isMusicOn = true
-    @State var count = 1
     
     @Environment(TimerObject.self) var timerObject
     let controls = true
     @State private var width: CGFloat = 0
     
-    @State private var musicPlayer = MusicPlayer()
+    @State var musicPlayer = MusicPlayer()
     
     var body: some View {
+        
         ZStack {
             //Background Image
             Image(.parchmenthoriz)
@@ -111,11 +111,7 @@ struct NewFlagView: View {
                                 Button {
                                     viewModel.gamePaused = true
                                     timerObject.stopTimer()
-                                    
-                                    if isMusicOn {
-                                        //pause music playing here
-                                        musicPlayer.pauseSong()
-                                    }
+                                    musicPlayer.pauseSong()
                                     
                                 } label: {
                                     Image(systemName: "pause.fill")
@@ -228,10 +224,11 @@ struct NewFlagView: View {
                                 .toggleStyle(.button)
                                 .contentTransition(.symbolEffect)
                                 .labelStyle(.iconOnly)
-                                .onTapGesture {
-                                    isMusicOn.toggle()
-                                    if !isMusicOn {
-                                        musicPlayer.stopSong()
+                                .onChange(of: isMusicOn) {
+                                    if musicPlayer.isPlaying {
+                                        musicPlayer.pauseSong()
+                                    } else {
+                                        musicPlayer.playSong()
                                     }
                                 }
                             

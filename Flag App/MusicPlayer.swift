@@ -49,7 +49,7 @@ class MusicPlayer {
     }
 
     func stopSong() {
-        audioPlayer?.play()
+        audioPlayer?.pause()
         isPlaying = false
     }
     
