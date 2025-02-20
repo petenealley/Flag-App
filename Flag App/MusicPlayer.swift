@@ -12,17 +12,12 @@ import AVKit
 class MusicPlayer {
     
     var audioPlayer: AVAudioPlayer?
-//    let soundPath: String = ""
     let soundChoice: [String] = ["song1", "song2", "song3"]
     var isPlaying = false
     
     init(audioPlayer: AVAudioPlayer? = nil) {
         self.audioPlayer = audioPlayer
     }
-    
-//    func chooseSong() {
-//        let songToPlay = soundChoice.randomElement() ?? "song1"
-//    }
     
     func setupAudio() {
         let songToPlay = soundChoice.randomElement() ?? "song1"
