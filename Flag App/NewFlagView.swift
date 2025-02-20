@@ -96,7 +96,6 @@ struct NewFlagView: View {
                                 Button {
                                     viewModel.gamePaused = false
                                     timerObject.startTimer()
-                                    musicPlayer.setupAudio()
                                     
                                     if isMusicOn {
                                         //start music playing here
@@ -127,6 +126,7 @@ struct NewFlagView: View {
                                 Button {
                                     timerObject.resetTimer()
                                     viewModel.startNewGame()
+                                    musicPlayer.setupAudio()
                                 } label: {
                                     Image(systemName: "gobackward")
                                 }
@@ -231,7 +231,7 @@ struct NewFlagView: View {
                                 .onTapGesture {
                                     isMusicOn.toggle()
                                     if !isMusicOn {
-//stop music palying here
+                                        musicPlayer.stopSong()
                                     }
                                 }
                             
@@ -252,7 +252,7 @@ struct NewFlagView: View {
             }
             .foregroundColor(.black)
             .onAppear(perform: {
-                
+                musicPlayer.setupAudio()
             })
         }
         //Alert Message Management (on ZStack)
