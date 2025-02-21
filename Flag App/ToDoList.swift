@@ -6,11 +6,7 @@
 //
 
 
-//Add Game Music Functionality
-
-//Add "Timer" Slider which sets game time limit - including "infinty play" & resets High Score to zero
-
-//Adjust High Score Capture to end of game only
+//Add More Songs and set time limit for playback
 
 //Refactor
 

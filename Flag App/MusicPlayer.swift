@@ -12,7 +12,7 @@ import AVKit
 class MusicPlayer {
     
     var audioPlayer: AVAudioPlayer?
-    let soundChoice: [String] = ["song1", "song2", "song3"]
+    let soundChoice: [String] = ["song1", "song3", "song4", "song5"]
     var isPlaying = false
     
     init(audioPlayer: AVAudioPlayer? = nil) {
@@ -49,6 +49,12 @@ class MusicPlayer {
     }
     
     func pauseSong() {
+        audioPlayer?.pause()
+        isPlaying = false
+    }
+    
+    func stopSong() {
+        audioPlayer?.setVolume(0.0, fadeDuration: 5.0)
         audioPlayer?.pause()
         isPlaying = false
     }

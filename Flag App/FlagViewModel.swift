@@ -49,6 +49,8 @@ class FlagViewModel {
         correctAnswers = 0
         wrongAnswers = 0
         remainingCountryCodes = allCountryCodes
+        let sarkIndex = remainingCountryCodes.firstIndex {$0 == "CQ"}
+        remainingCountryCodes.remove(at: sarkIndex!)
         startNewRound()
     }
     

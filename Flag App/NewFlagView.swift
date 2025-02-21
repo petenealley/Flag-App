@@ -293,6 +293,7 @@ struct NewFlagView: View {
         .alert(viewModel.scoreTitle, isPresented: $viewModel.showingScore) {
             if viewModel.scoreTitle == "Game Over!" {
                 Button("Game Over", action: {
+                    musicPlayer.stopSong()
                     musicPlayer.pauseSong()
                     viewModel.startNewGame()
                     timerObject.resetTimer()
