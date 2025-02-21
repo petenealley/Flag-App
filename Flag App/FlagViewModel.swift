@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 @Observable
 class FlagViewModel {
     
@@ -39,9 +38,9 @@ class FlagViewModel {
     
     // MARK: - Public Methods
     
-    func gameOver() {
-        gamePaused = true
-    }
+//    func gameOver() {
+//        gamePaused = true
+//    }
     
     func startNewGame() {
         gamePaused = true

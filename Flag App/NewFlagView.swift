@@ -50,7 +50,6 @@ struct NewFlagView: View {
 
                             if timerObject.remainingTime == 0 {
                                 viewModel.gamePaused = true
-                                
                             }
                         }
                         label: {
@@ -194,6 +193,7 @@ struct NewFlagView: View {
                             .fontWeight(.bold)
                     }
                     .frame(width: 400)
+                    .frame(height: 200)
                     .background(.indigo.opacity(0.9))
                     .cornerRadius(20)
                     .foregroundColor(.white)
@@ -207,7 +207,7 @@ struct NewFlagView: View {
                                 .padding()
                                 .fontWeight(.bold)
                         }
-                        .frame(width: 250)
+                        .frame(width: 310)
                         .background(.green.opacity(1))
                         .cornerRadius(20)
                         .foregroundColor(.white)
@@ -216,36 +216,67 @@ struct NewFlagView: View {
                         
                         //Game Settings Panel
                         HStack {
+                            //Settings Icon
+                            Image(systemName: "gear")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .foregroundColor(.gray)
+                                .fontWeight(.bold)
+                                .padding(.top, -50)
+                                .padding(.leading, 15)
+
+                            
                             //Music On/Off Icon
-                            Toggle("Music", systemImage: isMusicOn ? "speaker.circle" : "speaker.slash.circle", isOn: $isMusicOn)
-                                .tint(.white.opacity(0.0))
-                                .font(.system(size: 60))
-                                .padding()
-                                .toggleStyle(.button)
-                                .contentTransition(.symbolEffect)
-                                .labelStyle(.iconOnly)
-                                .onChange(of: isMusicOn) {
-                                    if musicPlayer.isPlaying {
-                                        musicPlayer.pauseSong()
-                                    } else {
-                                        musicPlayer.playSong()
+                            VStack {
+                                Toggle("Music", systemImage: isMusicOn ? "speaker.circle" : "speaker.slash.circle", isOn: $isMusicOn)
+                                    .tint(.white.opacity(0.0))
+                                    .font(.system(size: 60))
+                                    .padding(.top, 5)
+                                    .toggleStyle(.button)
+                                    .contentTransition(.symbolEffect)
+                                    .labelStyle(.iconOnly)
+                                    .onChange(of: isMusicOn) {
+                                        if musicPlayer.isPlaying {
+                                            musicPlayer.pauseSong()
+                                        } else {
+                                            if !viewModel.gamePaused {
+                                                musicPlayer.playSong()
+                                            }
+                                        }
                                     }
-                                }
+                                Text("Music")
+                                    .font(.title2)
+                                    .padding(.bottom, 7)
+                                    .padding(.top, -10)
+                            }
+//                            .padding(.leading, 10)
                             
-                            //Timer Icon/Slder
-                            
+                            Spacer()
+                            //Reset High Score Button
+                            VStack {
+                                Image(systemName: "square.and.pencil.circle")
+                                    .resizable()
+                                    .frame(width: 65, height: 65)
+                                    .foregroundColor(.black)
+                                    .padding(.top, 16)
+                                    .padding(.bottom, 11)
+
+                                
+                                Text("Reset Hi Score")
+                                    .font(.title2)
+                                    .padding(.bottom, 10)
+                                    .padding(.top, -10)
+                            }
+                            .padding(.trailing, 20)
                         }
-                        .frame(width: 250)
+                        .frame(width: 310)
                         .background(.white)
                         .cornerRadius(20)
                         .foregroundColor(.black)
                         .padding(.leading, 50)
-            
-
+    
                     }
-
                 }
-                
             }
             .foregroundColor(.black)
             .onAppear(perform: {
@@ -256,7 +287,13 @@ struct NewFlagView: View {
         //Alert Message Management (on ZStack)
         .alert(viewModel.scoreTitle, isPresented: $viewModel.showingScore) {
             if viewModel.scoreTitle == "Game Over!" {
-                Button("Game Over", action: viewModel.gameOver)
+                Button("Game Over", action: {
+                    musicPlayer.pauseSong()
+                    viewModel.startNewGame()
+                    timerObject.resetTimer()
+                    musicPlayer.setupAudio()
+                }
+                )
             } else {
                 Button("Continue", action: viewModel.startNewRound)
             }
@@ -275,7 +312,7 @@ struct NewFlagView: View {
 
 #Preview (traits: .landscapeRight) {
     NewFlagView()
-        .environment(TimerObject(timerColor: .indigo, length: 120))
+        .environment(TimerObject(timerColor: .indigo, length: 20))
 }
 
 struct ControlButtonStyle: ViewModifier {

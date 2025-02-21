@@ -53,10 +53,10 @@ class MusicPlayer {
         isPlaying = false
     }
 
-    func stopSong() {
-        audioPlayer?.pause()
-        isPlaying = false
-    }
+//    func stopSong() {
+//        audioPlayer?.pause()
+//        isPlaying = false
+//    }
     
 }
 
