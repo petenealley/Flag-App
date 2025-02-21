@@ -249,19 +249,23 @@ struct NewFlagView: View {
                                     .padding(.bottom, 7)
                                     .padding(.top, -10)
                             }
-//                            .padding(.leading, 10)
                             
                             Spacer()
                             //Reset High Score Button
                             VStack {
-                                Image(systemName: "square.and.pencil.circle")
-                                    .resizable()
-                                    .frame(width: 65, height: 65)
-                                    .foregroundColor(.black)
-                                    .padding(.top, 16)
-                                    .padding(.bottom, 11)
+                                Button {
+                                    viewModel.resetHighScore()
+                                }
+                                label: {
+                                    Image(systemName: "square.and.pencil.circle")
+                                        .resizable()
+                                        .frame(width: 65, height: 65)
+                                        .foregroundColor(.black)
+                                        .padding(.top, 16)
+                                        .padding(.bottom, 11)
+                                    
+                                }
 
-                                
                                 Text("Reset Hi Score")
                                     .font(.title2)
                                     .padding(.bottom, 10)

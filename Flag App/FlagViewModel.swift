@@ -18,7 +18,7 @@ class FlagViewModel {
     private(set) var score = 0
     private(set) var correctAnswers = 0
     private(set) var wrongAnswers = 0
-    private(set) var highScore = UserDefaults.standard.integer(forKey: "HighScore")
+    var highScore = UserDefaults.standard.integer(forKey: "HighScore")
     var showingScore = false
     var scoreTitle = ""
     var scoreMessage = ""
@@ -38,9 +38,10 @@ class FlagViewModel {
     
     // MARK: - Public Methods
     
-//    func gameOver() {
-//        gamePaused = true
-//    }
+    func resetHighScore() {
+        highScore = 0
+        UserDefaults.standard.set(highScore, forKey: "HighScore")
+    }
     
     func startNewGame() {
         gamePaused = true

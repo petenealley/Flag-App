@@ -2,7 +2,7 @@
 //  MusicPlayerObject.swift
 //  Flag App
 //
-//  Created by Pete Nealley on 2/16/25.
+//  Created by Pauk Jordan on 2/16/25.
 //
 
 import SwiftUI
@@ -52,11 +52,6 @@ class MusicPlayer {
         audioPlayer?.pause()
         isPlaying = false
     }
-
-//    func stopSong() {
-//        audioPlayer?.pause()
-//        isPlaying = false
-//    }
     
 }
 
