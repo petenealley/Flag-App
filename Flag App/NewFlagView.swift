@@ -265,6 +265,7 @@ struct NewFlagView: View {
                                         .padding(.bottom, 11)
                                     
                                 }
+                                .buttonStyle(ScaleButtonStyle())
 
                                 Text("Reset Hi Score")
                                     .font(.title2)
@@ -330,5 +331,12 @@ struct ControlButtonStyle: ViewModifier {
             .foregroundStyle(.white)
             .clipShape(Circle())
             .disabled(disabled)
+    }
+}
+
+struct ScaleButtonStyle : ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View
+        {
+            configuration.label.scaleEffect(configuration.isPressed ? 1.5 : 1)
     }
 }
