@@ -2,15 +2,14 @@
 //  MusicPlayerObject.swift
 //  Flag App
 //
-//  Created by Pauk Jordan on 2/16/25.
+//  Created by Pauk Jordan on 2/26/25.
 //
 
 import SwiftUI
-import AVKit
+import AVFoundation
 
 @Observable
 class MusicPlayer {
-    
     var audioPlayer: AVAudioPlayer?
     let soundChoice: [String] = ["song1", "song3", "song4", "song5"]
     var isPlaying = false
@@ -33,11 +32,7 @@ class MusicPlayer {
         }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(
-                .playback,
-                mode: .default,
-                options: []
-                )
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
         } catch {
             print("Error setting audio session category: \(error)")
         }
@@ -58,6 +53,4 @@ class MusicPlayer {
         audioPlayer?.pause()
         isPlaying = false
     }
-    
 }
-

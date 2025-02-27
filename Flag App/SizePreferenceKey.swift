@@ -1,0 +1,14 @@
+//
+//  SizePreferenceKey.swift
+//  Flag App
+//
+//  Created by Paul Jordan on 2/26/25.
+//
+
+
+import SwiftUI
+
+struct SizePreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize = .zero
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
+}

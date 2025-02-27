@@ -2,7 +2,7 @@
 //  FlagViewModel.swift
 //  Flag App
 //
-//  Created by Paul Jordan on 1/5/25.
+//  Created by Paul Jordan on 2/26/25.
 //
 
 import Foundation
@@ -10,11 +10,9 @@ import SwiftUI
 
 @Observable
 class FlagViewModel {
-    
-    // MARK: - Published Properties
-    private(set) var currentQuizFlagCodes: [String] = []
-    private(set) var correctCountryCode: String = ""
-    private(set) var remainingCountryCodes: [String] = []
+    private(set) var currentQuizCountries: [Country] = []
+    private(set) var correctCountry: Country?
+    private(set) var remainingCountries: [Country] = []
     private(set) var score = 0
     private(set) var correctAnswers = 0
     private(set) var wrongAnswers = 0
@@ -23,20 +21,16 @@ class FlagViewModel {
     var scoreTitle = ""
     var scoreMessage = ""
     var rotationAmount = 0.0
-    var selectedFlag: String?
+    var selectedCountry: Country?
     var gamePaused = true
     
-    // MARK: - Private Properties
-    private let allCountryCodes: [String]
+    private let allCountries: [Country]
     
-    // MARK: - Initialization
-    init(countryCodes: [String]) {
-        self.allCountryCodes = countryCodes
-        self.remainingCountryCodes = countryCodes
+    init(countries: [Country]) {
+        self.allCountries = countries
+        self.remainingCountries = countries
         startNewGame()
     }
-    
-    // MARK: - Public Methods
     
     func resetHighScore() {
         highScore = 0
@@ -48,29 +42,30 @@ class FlagViewModel {
         score = 0
         correctAnswers = 0
         wrongAnswers = 0
-        remainingCountryCodes = allCountryCodes
-        let sarkIndex = remainingCountryCodes.firstIndex {$0 == "CQ"}
-        remainingCountryCodes.remove(at: sarkIndex!)
+        remainingCountries = allCountries
+        if let sarkIndex = remainingCountries.firstIndex(where: { $0.code == "CQ" }) {
+            remainingCountries.remove(at: sarkIndex)
+        }
         startNewRound()
     }
     
     func startNewRound() {
-            currentQuizFlagCodes = populateQuizFlagCodes()
-            correctCountryCode = pickCorrectAnswer(from: currentQuizFlagCodes)
-            selectedFlag = nil
-            rotationAmount = 0
+        currentQuizCountries = populateQuizCountries()
+        correctCountry = pickCorrectAnswer(from: currentQuizCountries)
+        selectedCountry = nil
+        rotationAmount = 0
     }
     
-    func checkAnswer(_ selectedCode: String, remainingTime: Int) {
-        selectedFlag = selectedCode
+    func checkAnswer(_ selectedCountry: Country, remainingTime: Int) {
+        self.selectedCountry = selectedCountry
         
-        if selectedCode == correctCountryCode {
+        if selectedCountry == correctCountry {
             score += 10
             correctAnswers += 1
             scoreTitle = "Correct!"
             scoreMessage = ""
             rotationAmount += 360
-            removeCorrectAnswer(correctCountryCode)
+            removeCorrectAnswer(correctCountry!)
             
             if score > highScore {
                 highScore = score
@@ -80,10 +75,10 @@ class FlagViewModel {
             score -= 10
             wrongAnswers += 1
             scoreTitle = "Wrong!"
-            scoreMessage = "That's the flag of \(generateCountryName(for: selectedCode))"
+            scoreMessage = "That's the flag of \(selectedCountry.name)"
         }
         
-        if remainingCountryCodes.count < 4 || remainingTime < 1 {
+        if remainingCountries.count < 4 || remainingTime < 1 {
             scoreTitle = "Game Over!"
             scoreMessage = "Final score: \(score)\nHigh score: \(highScore)"
         }
@@ -91,38 +86,26 @@ class FlagViewModel {
         showingScore = true
     }
     
-    func generateCountryFlag(for countryCode: String) -> String {
-        String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
-            UnicodeScalar(127397 + $0.value)
-        }))
-    }
-    
-    func generateCountryName(for countryCode: String) -> String {
-        Locale.current.localizedString(forRegionCode: countryCode) ?? ""
-    }
-    
-    // MARK: - Private Methods
-    private func populateQuizFlagCodes() -> [String] {
-        var codes: [String] = []
-        var tempArray = remainingCountryCodes.shuffled()
+    private func populateQuizCountries() -> [Country] {
+        var countries: [Country] = []
+        var tempArray = remainingCountries.shuffled()
         
         for _ in 0...2 {
-            if let code = tempArray.popLast() {
-                codes.append(code)
+            if let country = tempArray.popLast() {
+                countries.append(country)
             }
         }
         
-        return codes
+        return countries
     }
     
-    private func pickCorrectAnswer(from array: [String]) -> String {
-        array.randomElement() ?? ""
+    private func pickCorrectAnswer(from array: [Country]) -> Country? {
+        array.randomElement()
     }
     
-    private func removeCorrectAnswer(_ correctCode: String) {
-        if let index = remainingCountryCodes.firstIndex(where: { $0 == correctCode }) {
-            remainingCountryCodes.remove(at: index)
+    private func removeCorrectAnswer(_ correctCountry: Country) {
+        if let index = remainingCountries.firstIndex(of: correctCountry) {
+            remainingCountries.remove(at: index)
         }
     }
 }
-

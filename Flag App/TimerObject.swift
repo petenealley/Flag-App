@@ -2,7 +2,7 @@
 //  TimerObject.swift
 //  Timer App
 //
-//  Created by Paul Jordan on 1/12/25.
+//  Created by Paul Jordan on 2/26/25.
 //
 
 import SwiftUI
@@ -10,7 +10,7 @@ import SwiftUI
 @Observable
 class TimerObject {
     let timerColor: Color
-    let length: Int
+    var length: Int
     
     init(timerColor: Color, length: Int) {
         self.timerColor = timerColor
@@ -19,7 +19,6 @@ class TimerObject {
     
     var timer: Timer? = nil
     var timeElapsed = 0
-    
     var isTimerRunning = false
     
     var remainingTime: Int {
@@ -48,9 +47,10 @@ class TimerObject {
         }
     }
     
-    func resetTimer(){
+    func resetTimer() {
         timeElapsed = 0
         isTimerRunning = false
+        timer?.invalidate()
     }
     
     var playButtonDisabled: Bool {
